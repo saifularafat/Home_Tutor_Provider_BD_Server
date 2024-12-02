@@ -9,7 +9,7 @@ const handelGetUsers = async (req, res, next) => {
     try {
         res.status(200).send({
             message: 'user Get is Handle Now Okay.',
-            users: users
+            users: users,
         })
     } catch (error) {
         next(error)

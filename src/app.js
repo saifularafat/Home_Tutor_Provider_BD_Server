@@ -5,6 +5,7 @@ const createError = require("http-errors");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const userRouter = require("./routers/userRouter");
+const seedRouter = require("./routers/seedRouter");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(rateLimitApi); // all api router is work now hit this router secret
 
 // router api setup 
 app.use('/api/user', userRouter)
+app.use('/api/seed', seedRouter)
 
 
 // Client-side error handling
