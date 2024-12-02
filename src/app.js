@@ -54,8 +54,6 @@ app.use((req, res, next) => {
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/seed", seedRouter);
-app.use("/api/categories", categoryRouter);
-app.use("/api/products", productRouter);
 
 // Middleware for authentication
 const isLoggedIn = (req, res, next) => {
