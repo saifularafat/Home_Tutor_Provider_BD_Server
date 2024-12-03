@@ -1,5 +1,9 @@
 
-const errorResponse = (res, { statusCode = 500, message = "Internal server Error" }) => {
+const errorResponse = (
+    res,
+    {
+        statusCode = 500,
+        message = "Internal server Error" }) => {
     return res
         .status(statusCode)
         .json({
@@ -9,7 +13,10 @@ const errorResponse = (res, { statusCode = 500, message = "Internal server Error
 }
 
 const successResponse = (res,
-    { statusCode = 200, message = "success", payload = {} }) => {
+    {
+        statusCode = 200,
+        message = "success",
+        payload = {} }) => {
     return res
         .status(statusCode)
         .json({

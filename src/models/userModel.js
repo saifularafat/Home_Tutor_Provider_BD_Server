@@ -2,6 +2,9 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema({
+    userId: {
+        type: String,
+    },
     name: {
         type: String,
         required: [true, "user name is required"],
