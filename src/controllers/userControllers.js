@@ -1,5 +1,5 @@
 const { successResponse } = require("../Helper/responseController");
-const { findUsers, findUserById } = require("../services/userService");
+const { findUsers, findUserById, deleteUserById } = require("../services/userService");
 
 // ! get all users 
 const handelGetUsers = async (req, res, next) => {
@@ -41,7 +41,25 @@ const handelGetUserById = async (req, res, next) => {
     }
 }
 
+// ! get single users by id
+const handelDeleteUserById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const option = { password: 0 };
+
+        await deleteUserById(id, option);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "user were deleted successfully",
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelGetUsers,
-    handelGetUserById
+    handelGetUserById,
+    handelDeleteUserById
 }

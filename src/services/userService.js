@@ -52,11 +52,24 @@ const findUserById = async (id, option = {}) => {
     }
 }
 
+// deleted user by id
+const deleteUserById = async (id, option = {}) => {
+    try {
+        const user = await User.findByIdAndDelete({
+            _id: id,
+            isAdmin: false
+        });
+        if (!user) throw createError(404, 'user not found.')
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 module.exports = {
     findUsers,
     findUserById,
-    // deleteUserById,
+    deleteUserById,
     // updateUserById,
     // handelUserAction,
     // updateUserPasswordById,
