@@ -41,7 +41,16 @@ const findUsers = async (search, limit, page) => {
         throw error;
     }
 }
-
+// single user by id
+const findUserById = async (id, option = {}) => {
+    try {
+        const user = await User.findById(id, option);
+        if (!user) throw createError(404, 'user not found.')
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 module.exports = {

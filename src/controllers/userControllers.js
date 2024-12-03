@@ -23,7 +23,23 @@ const handelGetUsers = async (req, res, next) => {
     }
 }
 
+// ! get single users by id
+const handelGetUserById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const option = { password: 0 };
 
+        const user = await findUserById(id, option);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "users were returned successfully",
+            payload: { user },
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 
 module.exports = {
     handelGetUsers,
