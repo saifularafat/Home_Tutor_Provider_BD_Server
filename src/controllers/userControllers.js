@@ -2,6 +2,9 @@ const createError = require('http-errors');
 const { successResponse } = require("../Helper/responseController");
 const { findUsers, findUserById, deleteUserById } = require("../services/userService");
 const User = require('../models/userModel');
+const { createJsonWebToken } = require('../Helper/jsonWebToken');
+const { jsonActivationKey, clientUrl } = require('../secret');
+const sendEmail = require('../Helper/sendEmail');
 
 // ^ get all users 
 const handelGetUsers = async (req, res, next) => {
@@ -80,10 +83,30 @@ const handelProcessRegister = async (req, res, next) => {
             image,
             nidBirth
         }
+        // create token
+        const token = createJsonWebToken(
+            user,
+            jsonActivationKey,
+            '30m')
+
+        // prepare user Email
+        const emailData = {
+            email,
+            subject: "Account Activation Email",
+            html: `
+            <h2>Hello ${name} !</h2>
+            <p>Please Click Here to <a href="${clientUrl}/api/users/activate/${token}"
+                target="_blank" style='color: green'> Active Your Account</a>
+             </p>
+            `
+        }
+        // send email with nodemailer
+        await sendEmail(emailData);
+
         return successResponse(res, {
             statusCode: 200,
             message: "user was create successfully",
-            payload: { user }
+            payload: { token }
         })
     } catch (error) {
         next(error)
