@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit");
 const userRouter = require("./routers/userRouter");
 const seedRouter = require("./routers/seedRouter");
 const { serverPort } = require("./secret");
+const { errorResponse } = require("./Helper/responseController");
 
 const app = express();
 
@@ -44,11 +45,11 @@ app.get("/", (req, res) => {
 
 // Client-side error handling
 app.use((req, res, next) => {
-    next(createError(404, "Route not found."));
+    next(createError(404, "route not found."));
 });
 // Server-side error handling
 app.use((err, req, res, next) => {
-    return createError(res, {
+    return errorResponse(res, {
         statusCode: err.status || 500,
         message: err.message || "Internal Server Error",
     });

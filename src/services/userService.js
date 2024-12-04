@@ -5,10 +5,8 @@ const User = require("../models/userModel");
 const findUsers = async (search, limit, page) => {
     try {
         const searchRegExp = new RegExp(".*" + search + ".*", "i");
-
         const filter = {
-            // isAdmin: { $ne: true },
-            // isInstructor: { $ne: true },
+            isAdmin: { $ne: true },
             $or: [
                 { name: { $regex: searchRegExp } },
                 { email: { $regex: searchRegExp } },
@@ -26,7 +24,7 @@ const findUsers = async (search, limit, page) => {
         const count = await User.find(filter).countDocuments();
 
         // search don't mach this search Value than error throw
-        if (!users || users.length === 0) { throw createError(404, "user not found !") };
+        if (!users || users.length === 0) throw createError(404, "user not found !");
 
         return {
             users,
@@ -42,10 +40,10 @@ const findUsers = async (search, limit, page) => {
     }
 }
 // single user by id
-const findUserById = async (id, option = {}) => {
+const findUserById = async (id, options = {}) => {
     try {
-        const user = await User.findById(id, option);
-        if (!user) throw createError(404, 'user not found.')
+        const user = await User.findById(id, options);
+        if (!user) throw createError(404, "user not found");
         return user;
     } catch (error) {
         throw error;
@@ -59,7 +57,7 @@ const deleteUserById = async (id, option = {}) => {
             _id: id,
             isAdmin: false
         });
-        if (!user) throw createError(404, 'user not found.')
+        if (!user) throw createError(404, "user des't this id exist.")
     } catch (error) {
         throw error;
     }

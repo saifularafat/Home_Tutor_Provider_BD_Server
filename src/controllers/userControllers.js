@@ -1,7 +1,9 @@
+const createError = require('http-errors');
 const { successResponse } = require("../Helper/responseController");
 const { findUsers, findUserById, deleteUserById } = require("../services/userService");
+const User = require('../models/userModel');
 
-// ! get all users 
+// ^ get all users 
 const handelGetUsers = async (req, res, next) => {
     try {
         const search = req.query.search || "";
@@ -23,7 +25,7 @@ const handelGetUsers = async (req, res, next) => {
     }
 }
 
-// ! get single users by id
+// ~ get single users by id
 const handelGetUserById = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -41,7 +43,7 @@ const handelGetUserById = async (req, res, next) => {
     }
 }
 
-// ! get single users by id
+// ! delete user by id
 const handelDeleteUserById = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -58,8 +60,40 @@ const handelDeleteUserById = async (req, res, next) => {
     }
 }
 
+// ? new user create
+const handelProcessRegister = async (req, res, next) => {
+    try {
+        const { name, email, password, phone, address, gender, image, nidBirth } = req.body;
+
+        const userExist = await User.exists({ email: email });
+        if (userExist) {
+            throw createError(409, 'User with this email already exist. Please lon in ')
+        }
+
+        const user = {
+            name,
+            email,
+            password,
+            phone,
+            address,
+            gender,
+            image,
+            nidBirth
+        }
+        return successResponse(res, {
+            statusCode: 200,
+            message: "user was create successfully",
+            payload: { user }
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+
 module.exports = {
     handelGetUsers,
     handelGetUserById,
-    handelDeleteUserById
+    handelDeleteUserById,
+    handelProcessRegister
 }
