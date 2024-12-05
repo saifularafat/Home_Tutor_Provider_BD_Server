@@ -1,10 +1,9 @@
 const nodemailer = require("nodemailer");
 const { smtpUserName, smtpPassword } = require("../secret");
 // const logger = require("../controllers/loggerController");
-console.log('object');
-console.log(smtpUserName);
-console.log('password');
-console.log(smtpPassword);
+
+console.log('user', smtpUserName);
+console.log('password', smtpPassword);
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,

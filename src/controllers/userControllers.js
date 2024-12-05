@@ -1,10 +1,12 @@
 const createError = require('http-errors');
+const jwt = require('jsonwebtoken');
 const { successResponse } = require("../Helper/responseController");
 const { findUsers, findUserById, deleteUserById } = require("../services/userService");
 const User = require('../models/userModel');
 const { createJsonWebToken } = require('../Helper/jsonWebToken');
 const { jsonActivationKey, clientUrl } = require('../secret');
 const sendEmail = require('../Helper/sendEmail');
+const checkUserExists = require('../Helper/checkUserExists');
 
 // ^ get all users 
 const handelGetUsers = async (req, res, next) => {
@@ -68,11 +70,11 @@ const handelProcessRegister = async (req, res, next) => {
     try {
         const { name, email, password, phone, address, gender, image, nidBirth } = req.body;
 
-        const userExist = await User.exists({ email: email });
+        const userExist = await checkUserExists(email);
+
         if (userExist) {
             throw createError(409, 'User with this email already exist. Please lon in ')
         }
-
         const user = {
             name,
             email,
@@ -105,9 +107,47 @@ const handelProcessRegister = async (req, res, next) => {
 
         return successResponse(res, {
             statusCode: 200,
-            message: "user was create successfully",
+            message: `please go to your ${email} for completing your registration process`,
             payload: { token }
         })
+    } catch (error) {
+        next(error)
+    }
+}
+
+// ? new user create
+const handelActivateUsersAccount = async (req, res, next) => {
+    try {
+        const token = req.body.token;
+
+        if (!token) throw createError(404, 'Token not found!')
+
+        try {
+            const decoded = jwt.verify(token, jsonActivationKey)
+
+            if (!decoded) throw createError(401, 'unable to verify user!')
+
+            const userExists = await User.exists({ email: decoded?.email });
+            if (userExists) {
+                throw createError(409, "user email already exists. Please Sign in!")
+            }
+
+            await User.create(decoded);
+
+            return successResponse(res, {
+                statusCode: 201,
+                message: "user was registered successfully ",
+            })
+        } catch (error) {
+            if (error.name === "TokenExpiredError") {
+                throw createError(401, "Token is Expired")
+            } else if (error.name === "JsonWebTokenError") {
+                throw createError(401, "Invalid Token")
+            } else {
+                throw error
+            }
+        }
+
     } catch (error) {
         next(error)
     }
@@ -118,5 +158,6 @@ module.exports = {
     handelGetUsers,
     handelGetUserById,
     handelDeleteUserById,
-    handelProcessRegister
+    handelProcessRegister,
+    handelActivateUsersAccount,
 }

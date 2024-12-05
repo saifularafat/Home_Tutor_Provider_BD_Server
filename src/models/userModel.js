@@ -59,12 +59,12 @@ const userSchema = new Schema({
     image: {
         type: Buffer,
         contentType: String,
-        required: [true, "User Image is required"],
+        // required: [true, "User Image is required"],
     },
     nidBirth: {
         type: Buffer,
         contentType: String,
-        required: [true, "User Nid cart is required"],
+        // required: [true, "User Nid cart is required"],
     },
     isAdmin: {
         type: Boolean,
@@ -91,18 +91,13 @@ const userSchema = new Schema({
 
 
 // Pre-save hook to hash password
-userSchema.pre("save", async (next) => {
-    console.log("Password modified:", this.isModified("password"));
+userSchema.pre("save", async function (next) {
+    // Check if the password is modified (for example, during update)
     if (!this.isModified("password")) return next();
 
-    try {
-        this.password = await bcrypt.hash(this.password, 10);
-        console.log("Password hashed successfully");
-        next();
-    } catch (error) {
-        console.error("Error hashing password:", error);
-        next(error); // Pass error to the save process
-    }
+    // Hash the password
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
 });
 
 
