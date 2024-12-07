@@ -31,22 +31,26 @@ const validatorUserRegistration = [
         .trim()
         .notEmpty()
         .withMessage("Phone is required, Enter your Phone"),
-    body('image')
-        .custom((value, { req }) => {
-            if (!req.file || !req.file.buffer) {
-                throw new Error("User image is required!")
-            }
-            return true;
-        })
-        .withMessage("User image is required"),
-    body('nidBirth')
-        .custom((value, { req }) => {
-            if (!req.file || !req.file.buffer) {
-                throw new Error("Your nid/birthday is required!")
-            }
-            return true;
-        })
-        .withMessage("User image is required"),
+    body('gender')
+        .trim()
+        .notEmpty()
+        .withMessage("Gender is required"),
+    // body('image')
+    //     .custom((value, { req }) => {
+    //         if (!req.file || !req.file.buffer) {
+    //             throw new Error("User image is required!")
+    //         }
+    //         return true;
+    //     })
+    //     .withMessage("User image is required"),
+    // body('nidBirth')
+    //     .custom((value, { req }) => {
+    //         if (!req.file || !req.file.buffer) {
+    //             throw new Error("Your nid/birthday is required!")
+    //         }
+    //         return true;
+    //     })
+    //     .withMessage("User image is required"),
 ]
 
 // login validator 
