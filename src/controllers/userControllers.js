@@ -127,7 +127,8 @@ const handelActivateUsersAccount = async (req, res, next) => {
 
             if (!decoded) throw createError(401, 'unable to verify user!')
 
-            const userExists = await User.exists({ email: decoded?.email });
+            // const userExists = await User.exists({ email: decoded?.email });
+            const userExists = await checkUserExists(decoded?.email);
             if (userExists) {
                 throw createError(409, "user email already exists. Please Sign in!")
             }
