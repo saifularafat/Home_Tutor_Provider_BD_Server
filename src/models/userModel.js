@@ -59,12 +59,12 @@ const userSchema = new Schema({
     image: {
         type: Buffer,
         contentType: String,
-        // required: [true, "User Image is required"],
+        required: [true, "User Image is required"],
     },
     nidBirth: {
         type: Buffer,
         contentType: String,
-        // required: [true, "User Nid cart is required"],
+        required: [true, "User Nid cart is required"],
     },
     isAdmin: {
         type: Boolean,
