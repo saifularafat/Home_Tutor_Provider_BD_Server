@@ -16,8 +16,6 @@ const jwtResetPasswordKey = process.env.JWT_RESET_PASSWORD_KEY || "59c81f406a6bc
 const smtpUserName = process.env.SMTP_USERNAME || "";
 const smtpPassword = process.env.SMTP_PASSWORD || "";
 
-// image upload url
-const uploadDir = process.env.UPLOAD_FILE || "public/image/users"
 // user interface in the Client site
 const clientUrl = process.env.CLIENT_URL || "";
 
@@ -29,7 +27,6 @@ module.exports = {
     smtpUserName,
     smtpPassword,
     clientUrl,
-    uploadDir,
     jsonAccessKey,
     jsonRefreshKey,
     jwtResetPasswordKey

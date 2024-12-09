@@ -6,14 +6,14 @@ const {
     handelDeleteUserById,
     handelActivateUsersAccount,
 } = require("../controllers/userControllers");
-const upload = require("../middlewares/uploadFile");
+const { userImageUpload } = require("../middlewares/uploadFile");
 const { validatorUserRegistration } = require("../validators/auth");
 const runValidation = require("../validators");
 
 const userRouter = express.Router();
 
 userRouter.post("/process-register",
-    upload.fields(['image', 'nidBirth']),
+    userImageUpload.single("image"),
     validatorUserRegistration,
     runValidation,
     handelProcessRegister);

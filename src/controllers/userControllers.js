@@ -68,8 +68,17 @@ const handelDeleteUserById = async (req, res, next) => {
 // ? new user create
 const handelProcessRegister = async (req, res, next) => {
     try {
-        const { name, email, password, phone, address, gender, image, nidBirth } = req.body;
-
+        const { name, email, password, phone, address, gender } = req.body;
+        const image = req.file;
+        // check the image filed 
+        if (!image) {
+            throw createError(400, "Image file is required!")
+        }
+        // check the image size 
+        if (image.size > 1024 * 1024 * 2) {
+            throw createError(400, "Image file is too large. It must be less than 2 MB.")
+        }
+        const imageBufferString = image.buffer.toString('base64');
         const userExist = await checkUserExists(email);
 
         if (userExist) {
@@ -82,8 +91,7 @@ const handelProcessRegister = async (req, res, next) => {
             phone,
             address,
             gender,
-            image,
-            nidBirth
+            image: imageBufferString,
         }
         // create token
         const token = createJsonWebToken(

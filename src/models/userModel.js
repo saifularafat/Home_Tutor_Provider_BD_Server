@@ -57,16 +57,9 @@ const userSchema = new Schema({
         message: "Gender must be Male, Female, or Other"
     },
     image: {
-        // type: Buffer,
-        type: String,
+        type: Buffer,
         contentType: String,
-        // required: [true, "User Image is required"],
-    },
-    nidBirth: {
-        // type: Buffer,
-        type: String,
-        contentType: String,
-        // required: [true, "User Nid cart is required"],
+        required: [true, "User Image is required"],
     },
     isAdmin: {
         type: Boolean,
