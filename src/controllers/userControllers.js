@@ -181,8 +181,8 @@ const handelUpdateUserByID = async (req, res, next) => {
 module.exports = {
     handelGetUsers,
     handelGetUserById,
-    handelDeleteUserById,
     handelProcessRegister,
     handelActivateUsersAccount,
     handelUpdateUserByID,
+    handelDeleteUserById,
 }

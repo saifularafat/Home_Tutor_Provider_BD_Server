@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const User = require("../models/userModel");
+const { findWithId } = require('./findWithId');
 
 // find all users
 const findUsers = async (search, limit, page) => {
@@ -53,6 +54,7 @@ const findUserById = async (id, options = {}) => {
 // deleted user by id
 const deleteUserById = async (id, option = {}) => {
     try {
+        await findWithId(User, id, option);
         const user = await User.findByIdAndDelete({
             _id: id,
             isAdmin: false
@@ -67,7 +69,7 @@ const deleteUserById = async (id, option = {}) => {
 const updateUserById = async (userId, req) => {
     try {
         const options = { password: 0 };
-        await findUserById(userId, options);
+        await findWithId(User, userId, options);
 
         const updateOptions = { new: true, runValidators: true, context: 'query' };
         let updates = {}
