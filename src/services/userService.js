@@ -1,4 +1,6 @@
 const createError = require('http-errors');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const User = require("../models/userModel");
 const { findWithId } = require('./findWithId');
@@ -137,13 +139,60 @@ const handelUserAction = async (id, action) => {
     }
 }
 
+
+// user password update service handel
+const updateUserPasswordById = async (userId, oldPassword, newPassword, confirmedPassword) => {
+    try {
+        const user = await User.findOne({ _id: userId });
+        console.log('email', user);
+        if (!user) {
+            throw createError(400, 'User Email is not found.')
+        }
+
+        // Check if new password and confirmed password match
+        if (newPassword !== confirmedPassword) {
+            throw createError(400, 'New password and confirmed password did not match');
+        }
+
+        // compare the password
+        const isPasswordMatch = await bcrypt.compare(oldPassword, user.password)
+        if (!isPasswordMatch) {
+            throw createError(401, 'old password is incorrect')
+        }
+
+        // Hash the new password
+        const updatePassword = await bcrypt.hash(newPassword, 10);
+
+        // update options
+        const filter = { _id: userId };
+        const updates = { $set: { password: updatePassword } };
+        const updateOptions = { new: true };
+
+        const updatedUser = await User.findByIdAndUpdate(
+            filter,
+            updates,
+            updateOptions
+        ).select('-password');
+        if (!updatedUser) {
+            throw createError(404, "User with this ID dons not exist.")
+        }
+        return updatedUser;
+    } catch (error) {
+        if (error instanceof mongoose.Error.CastError) {
+            throw createError(400, 'Invalid Id')
+        }
+        throw (error);
+    }
+}
+
+
 module.exports = {
     findUsers,
     findUserById,
     deleteUserById,
     updateUserById,
     handelUserAction,
-    // updateUserPasswordById,
+    updateUserPasswordById,
     // forgetPasswordByEmail,
     // resetPassword,
 }

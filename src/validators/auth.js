@@ -59,7 +59,34 @@ const validatorUserLogin = [
         .withMessage("Password is required, Enter your password")
 ]
 
+// Update password validator
+const validatorUserUpdatePassword = [
+    body('oldPassword')
+        .trim()
+        .notEmpty()
+        .withMessage("Password is required, Enter your password"),
+    body('newPassword')
+        .trim()
+        .notEmpty()
+        .withMessage("Password is required, Enter your new password")
+        .isLength({ min: 8 })
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
+        .withMessage(
+            "Password should content at least one uppercase letter, one lowercase letter, one number, and one special characters.!"
+        )
+    ,
+    body('confirmedPassword')
+        .custom((value, { req }) => {
+            if (value !== req.body.newPassword) {
+                throw createError(400, 'New password and confirmed password did not match')
+            }
+            return true;
+        }),
+
+]
+
 module.exports = {
     validatorUserRegistration,
     validatorUserLogin,
+    validatorUserUpdatePassword,
 }

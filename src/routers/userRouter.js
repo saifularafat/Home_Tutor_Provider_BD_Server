@@ -7,10 +7,14 @@ const {
     handelActivateUsersAccount,
     handelUpdateUserByID,
     handelManageUserBanAndUnBanById,
+    handelUpdatePassword,
 } = require("../controllers/userControllers");
 
 const { userImageUpload } = require("../middlewares/uploadFile");
-const { validatorUserRegistration } = require("../validators/auth");
+const {
+    validatorUserRegistration,
+    validatorUserUpdatePassword,
+} = require("../validators/auth");
 const runValidation = require("../validators");
 const {
     isLoggedIn,
@@ -49,6 +53,14 @@ userRouter.put("/manage-user/:id([0-9a-fA-F]{24})",
     isLoggedIn,
     isAdmin,
     handelManageUserBanAndUnBanById
+);
+
+// password
+userRouter.put("/update-password/:id([0-9a-fA-F]{24})",
+    validatorUserUpdatePassword,
+    runValidation,
+    isLoggedIn,
+    handelUpdatePassword
 );
 
 
