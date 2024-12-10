@@ -9,19 +9,19 @@ const {
 } = require("../controllers/authController");
 
 const { validatorUserLogin } = require("../validators/auth");
-const { isLoggedIn } = require("../middlewares/auth");
+const { isLoggedIn, isLoggedOut } = require("../middlewares/auth");
 
 authRouter.post(
     "/login",
     validatorUserLogin,
     runValidation,
-    // isLoggedOut,
+    isLoggedOut,
     handleLogin)
 
-    authRouter.post(
-        "/logout",
-        isLoggedIn,
-        handleLogout)
+authRouter.post(
+    "/logout",
+    isLoggedIn,
+    handleLogout)
 
 
 module.exports = authRouter; 
