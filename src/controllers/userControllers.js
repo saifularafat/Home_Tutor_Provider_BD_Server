@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { successResponse } = require("../Helper/responseController");
 const { findUsers, findUserById, deleteUserById, updateUserById } = require("../services/userService");
 const User = require('../models/userModel');
-const { createJsonWebToken } = require('../Helper/jsonWebToken');
+const { createJsonWebToken } = require("../Helper/jsonwebtoken");
 const { jsonActivationKey, clientUrl } = require('../secret');
 const sendEmail = require('../Helper/sendEmail');
 const checkUserExists = require('../Helper/checkUserExists');
@@ -97,7 +97,7 @@ const handelProcessRegister = async (req, res, next) => {
         const token = createJsonWebToken(
             user,
             jsonActivationKey,
-            '30m')
+            '1h')
 
         // prepare user Email
         const emailData = {

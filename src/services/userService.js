@@ -74,7 +74,7 @@ const updateUserById = async (userId, req) => {
         const updateOptions = { new: true, runValidators: true, context: 'query' };
         let updates = {}
         // name, email, password, image, phone, address
-        const allowedFields = ['name', 'password', 'phone', 'address']
+        const allowedFields = ['name', 'password', 'phone', 'address', 'gender',]
         for (const key in req.body) {
             if (allowedFields.includes(key)) {
                 updates[key] = req.body[key];
@@ -91,7 +91,6 @@ const updateUserById = async (userId, req) => {
             }
             updates.image = image.buffer.toString('base64')
         }
-
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             updates,

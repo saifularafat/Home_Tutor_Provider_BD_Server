@@ -3,11 +3,13 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const xssClean = require("xss-clean");
+const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
-const userRouter = require("./routers/userRouter");
-const seedRouter = require("./routers/seedRouter");
 const { serverPort } = require("./secret");
 const { errorResponse } = require("./Helper/responseController");
+const userRouter = require("./routers/userRouter");
+const seedRouter = require("./routers/seedRouter");
+const authRouter = require("./routers/authRouter");
 
 const app = express();
 
@@ -23,7 +25,7 @@ const bodyParserOptions = {
     limit: "100kb",
 };
 
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(xssClean());
 app.use(morgan("dev"));
 app.use(bodyParser.json(bodyParserOptions));
@@ -32,6 +34,7 @@ app.use(rateLimitApi); // all api router is work now hit this router secret
 
 // router api setup 
 app.use('/api/users', userRouter)
+app.use("/api/auth", authRouter);
 app.use('/api/seed', seedRouter)
 
 
