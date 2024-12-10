@@ -6,7 +6,9 @@ const {
     handelDeleteUserById,
     handelActivateUsersAccount,
     handelUpdateUserByID,
+    handelManageUserBanAndUnBanById,
 } = require("../controllers/userControllers");
+
 const { userImageUpload } = require("../middlewares/uploadFile");
 const { validatorUserRegistration } = require("../validators/auth");
 const runValidation = require("../validators");
@@ -42,6 +44,11 @@ userRouter.put("/:id([0-9a-fA-F]{24})",
     userImageUpload.single("image"),
     isLoggedIn,
     handelUpdateUserByID
+);
+userRouter.put("/manage-user/:id([0-9a-fA-F]{24})",
+    isLoggedIn,
+    isAdmin,
+    handelManageUserBanAndUnBanById
 );
 
 

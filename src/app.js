@@ -16,7 +16,7 @@ const app = express();
 // API request rate limiter
 const rateLimitApi = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 10, // Max 10 requests per IP
+    max: 20, // Max 10 requests per IP
     message: "Too many requests from this IP. Please try again later.",
 });
 

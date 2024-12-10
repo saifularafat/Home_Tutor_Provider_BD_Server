@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+
 const User = require("../models/userModel");
 const { findWithId } = require('./findWithId');
 
@@ -113,12 +114,35 @@ const updateUserById = async (userId, req) => {
     }
 }
 
+const handelUserAction = async (id, action) => {
+    try {
+        let update;
+
+        if (action === 'ban') {
+            update = { isBanned: true };
+        } else if (action === 'unBan') {
+            update = { isBanned: false };
+        } else {
+            throw createError(400, 'Invalid action, Please select Ban and UnBan option.!')
+        }
+        const updateOption = { new: true, runValidators: true, context: 'query' };
+        const updateUser = await User.findByIdAndUpdate(id, update, updateOption).select('-password');
+        if (!updateUser) {
+            throw createError(
+                400,
+                `user was not ${action} successfully, Please try again`)
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     findUsers,
     findUserById,
     deleteUserById,
     updateUserById,
-    // handelUserAction,
+    handelUserAction,
     // updateUserPasswordById,
     // forgetPasswordByEmail,
     // resetPassword,

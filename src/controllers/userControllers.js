@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 const { successResponse } = require("../Helper/responseController");
-const { findUsers, findUserById, deleteUserById, updateUserById } = require("../services/userService");
+const { findUsers, findUserById, deleteUserById, updateUserById, handelUserAction } = require("../services/userService");
 const User = require('../models/userModel');
 const { createJsonWebToken } = require("../Helper/jsonwebtoken");
 const { jsonActivationKey, clientUrl } = require('../secret');
@@ -177,6 +177,23 @@ const handelUpdateUserByID = async (req, res, next) => {
     }
 }
 
+const handelManageUserBanAndUnBanById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const action = req.body.action;
+
+        await handelUserAction(id, action);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: `user were ${action} successfully`,
+            payload: {},
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 module.exports = {
     handelGetUsers,
@@ -185,4 +202,6 @@ module.exports = {
     handelActivateUsersAccount,
     handelUpdateUserByID,
     handelDeleteUserById,
+    handelManageUserBanAndUnBanById,
+
 }
