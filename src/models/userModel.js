@@ -61,6 +61,10 @@ const userSchema = new Schema({
         contentType: String,
         required: [true, "User Image is required"],
     },
+    nidBirth: {
+        type: Buffer,
+        contentType: String,
+    },
     isAdmin: {
         type: Boolean,
         default: false

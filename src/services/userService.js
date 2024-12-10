@@ -91,6 +91,14 @@ const updateUserById = async (userId, req) => {
             }
             updates.image = image.buffer.toString('base64')
         }
+        // nidBirth update verify
+        const nidBirth = req.file;
+        if (nidBirth) {
+            if (nidBirth.size > 1024 * 1024 * 2) {
+                throw createError(400, "Nid/Birth file is too large. It must be less than 2 MB.")
+            }
+            updates.nidBirth = nidBirth.buffer.toString('base64')
+        }
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             updates,
