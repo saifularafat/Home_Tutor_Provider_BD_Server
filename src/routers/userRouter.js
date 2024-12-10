@@ -10,7 +10,11 @@ const {
 const { userImageUpload } = require("../middlewares/uploadFile");
 const { validatorUserRegistration } = require("../validators/auth");
 const runValidation = require("../validators");
-const { isLoggedIn, isLoggedOut } = require("../middlewares/auth");
+const {
+    isLoggedIn,
+    isLoggedOut,
+    isAdmin,
+} = require("../middlewares/auth");
 
 const userRouter = express.Router();
 
@@ -24,11 +28,12 @@ userRouter.post("/activate", handelActivateUsersAccount);
 
 userRouter.get('/',
     isLoggedIn,
+    isAdmin,
     handelGetUsers);
 userRouter.get('/:id([0-9a-fA-F]{24})',
     isLoggedIn,
     handelGetUserById);
-    
+
 userRouter.delete('/:id([0-9a-fA-F]{24})',
     isLoggedIn,
     handelDeleteUserById);
