@@ -8,8 +8,8 @@ const {
 
 } = require("../controllers/authController");
 
-// const { isLoggedIn } = require("../middlewares/auth");
 const { validatorUserLogin } = require("../validators/auth");
+const { isLoggedIn } = require("../middlewares/auth");
 
 authRouter.post(
     "/login",
@@ -20,7 +20,7 @@ authRouter.post(
 
     authRouter.post(
         "/logout",
-        // isLoggedIn,
+        isLoggedIn,
         handleLogout)
 
 
