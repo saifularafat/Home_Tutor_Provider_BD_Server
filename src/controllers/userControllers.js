@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 const { successResponse } = require("../Helper/responseController");
-const { findUsers, findUserById, deleteUserById, updateUserById, handelUserAction, updateUserPasswordById } = require("../services/userService");
+const { findUsers, findUserById, deleteUserById, updateUserById, handelUserAction, updateUserPasswordById, forgetPasswordByEmail } = require("../services/userService");
 const User = require('../models/userModel');
 const { createJsonWebToken } = require("../Helper/jsonwebtoken");
 const { jsonActivationKey, clientUrl } = require('../secret');
@@ -177,6 +177,7 @@ const handelUpdateUserByID = async (req, res, next) => {
     }
 }
 
+// * user ban and unBan by ID wait admin
 const handelManageUserBanAndUnBanById = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -194,7 +195,7 @@ const handelManageUserBanAndUnBanById = async (req, res, next) => {
     }
 }
 
-// ! user update Password by ID
+// ! user Password update by ID
 const handelUpdatePassword = async (req, res, next) => {
     try {
         const { oldPassword, newPassword, confirmedPassword } = req.body;
@@ -216,6 +217,22 @@ const handelUpdatePassword = async (req, res, next) => {
     }
 }
 
+// ! Forget Password By Email
+const handelForgetPassword = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        const token = await forgetPasswordByEmail(email)
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: `Please go to your ${email} for resting in the password`,
+            payload: token,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelGetUsers,
     handelGetUserById,
@@ -224,6 +241,6 @@ module.exports = {
     handelUpdateUserByID,
     handelDeleteUserById,
     handelManageUserBanAndUnBanById,
-    handelUpdatePassword
-    ,
+    handelUpdatePassword,
+    handelForgetPassword,
 }

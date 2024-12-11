@@ -8,12 +8,14 @@ const {
     handelUpdateUserByID,
     handelManageUserBanAndUnBanById,
     handelUpdatePassword,
+    handelForgetPassword,
 } = require("../controllers/userControllers");
 
 const { userImageUpload } = require("../middlewares/uploadFile");
 const {
     validatorUserRegistration,
     validatorUserUpdatePassword,
+    validatorUserForgetPassword,
 } = require("../validators/auth");
 const runValidation = require("../validators");
 const {
@@ -55,12 +57,20 @@ userRouter.put("/manage-user/:id([0-9a-fA-F]{24})",
     handelManageUserBanAndUnBanById
 );
 
-// password
+// password update
 userRouter.put("/update-password/:id([0-9a-fA-F]{24})",
     validatorUserUpdatePassword,
     runValidation,
     isLoggedIn,
     handelUpdatePassword
+);
+
+// forget password
+userRouter.post("/forget-password",
+    validatorUserForgetPassword,
+    runValidation,
+    isLoggedIn,
+    handelForgetPassword
 );
 
 

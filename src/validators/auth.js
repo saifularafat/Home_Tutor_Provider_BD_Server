@@ -85,8 +85,18 @@ const validatorUserUpdatePassword = [
 
 ]
 
+// Forget Password validator 
+const validatorUserForgetPassword = [
+    body('email')
+        .trim()
+        .notEmpty()
+        .withMessage("Email is required, Enter your Email")
+        .isEmail()
+        .withMessage("Invalid email address!"),
+]
 module.exports = {
     validatorUserRegistration,
     validatorUserLogin,
     validatorUserUpdatePassword,
+    validatorUserForgetPassword
 }

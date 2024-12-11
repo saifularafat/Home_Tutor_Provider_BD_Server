@@ -4,6 +4,9 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../models/userModel");
 const { findWithId } = require('./findWithId');
+const { createJsonWebToken } = require('../Helper/jsonwebtoken');
+const { jwtResetPasswordKey, clientUrl } = require('../secret');
+const sendEmail = require('../Helper/sendEmail');
 
 // find all users
 const findUsers = async (search, limit, page) => {
@@ -184,6 +187,41 @@ const updateUserPasswordById = async (userId, oldPassword, newPassword, confirme
         throw (error);
     }
 }
+const forgetPasswordByEmail = async (email) => {
+    try {
+        const userData = await User.findOne({ email: email });
+        if (!userData) {
+            throw createError(
+                404,
+                'Email is incorrect or you have not verified your Email address. Please register First')
+        }
+
+        // create jwt token
+        const token = createJsonWebToken(
+            { email },
+            jwtResetPasswordKey,
+            "10m")
+
+        // prepare email
+        const emailData = {
+            email,
+            subject: "Forget Your Password Email",
+            html: `
+    <h2>Hello ${userData?.name} !</h2>
+    <p>Please Click Here to <a href="${clientUrl}/api/users/forget-password/${token}"
+        target="_blank"> Forget your password</a>
+     </p>
+    `
+        }
+
+        // send email with nodemailer
+        sendEmail(emailData)
+        return token;
+
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 module.exports = {
@@ -193,6 +231,6 @@ module.exports = {
     updateUserById,
     handelUserAction,
     updateUserPasswordById,
-    // forgetPasswordByEmail,
+    forgetPasswordByEmail,
     // resetPassword,
 }

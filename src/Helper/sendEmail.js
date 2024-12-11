@@ -4,7 +4,7 @@ const sendEmailWithNodeMailer = require('./email');
 const sendEmail = async (emailData) => {
     try {
         // * unComment now
-        // await sendEmailWithNodeMailer(emailData)
+        await sendEmailWithNodeMailer(emailData)
     } catch (emailError) {
         throw createError(500, " Failed to send verification Email")
     }
