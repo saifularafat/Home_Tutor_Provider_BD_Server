@@ -31,6 +31,7 @@ authRouter.get(
 
 authRouter.get(
     "/protected",
+    
     handelProtectedRoute)
 
 

@@ -112,7 +112,7 @@ const handleRefreshToken = async (req, res, next) => {
         setAccessTokenCookie(res, accessToken)
         return successResponse(res, {
             statusCode: 200,
-            message: "user refresh Token successfully"
+            message: "New access token is create successfully"
         })
     } catch (error) {
         next(error)
@@ -121,10 +121,21 @@ const handleRefreshToken = async (req, res, next) => {
 
 const handelProtectedRoute = async (req, res, next) => {
     try {
+        const accessToken = req.cookies.accessToken;
 
+        // old refresh token and jwtRefreshKey check the token 
+        const decodedToken = jwt.verify(accessToken, jsonAccessKey);
+        if (!decodedToken) {
+            throw createError(
+                401,
+                'Invalid Access token. Please login again.'
+            )
+        }
+        
         return successResponse(res, {
             statusCode: 200,
-            message: "user Protected Router successfully"
+            message: "Protected resources access successfully",
+            payload: {}
         })
     } catch (error) {
         next(error)
