@@ -5,6 +5,7 @@ const runValidation = require("../validators");
 const {
     handleLogin,
     handleLogout,
+    handleRefreshToken,
 
 } = require("../controllers/authController");
 
@@ -22,6 +23,10 @@ authRouter.post(
     "/logout",
     isLoggedIn,
     handleLogout)
+
+authRouter.get(
+    "/refresh-token",
+    handleRefreshToken)
 
 
 module.exports = authRouter; 
