@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 const { successResponse } = require("../Helper/responseController");
-const { findUsers, findUserById, deleteUserById, updateUserById, handelUserAction, updateUserPasswordById, forgetPasswordByEmail } = require("../services/userService");
+const { findUsers, findUserById, deleteUserById, updateUserById, handelUserAction, updateUserPasswordById, forgetPasswordByEmail, resetPassword } = require("../services/userService");
 const User = require('../models/userModel');
 const { createJsonWebToken } = require("../Helper/jsonwebtoken");
 const { jsonActivationKey, clientUrl } = require('../secret');
@@ -233,6 +233,23 @@ const handelForgetPassword = async (req, res, next) => {
     }
 }
 
+// ! Reset Password by token
+const handelResetPassword = async (req, res, next) => {
+    try {
+        const { token, newPassword } = req.body;
+
+        await resetPassword(token, newPassword);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "Password reset successfully",
+            // payload: {}
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelGetUsers,
     handelGetUserById,
@@ -243,4 +260,5 @@ module.exports = {
     handelManageUserBanAndUnBanById,
     handelUpdatePassword,
     handelForgetPassword,
+    handelResetPassword,
 }

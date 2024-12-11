@@ -19,7 +19,7 @@ const validatorUserRegistration = [
         .notEmpty()
         .withMessage("Password is required, Enter your password")
         .isLength({ min: 8 })
-        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$/)
         .withMessage("Password should content at least one uppercase letter, one lowercase letter, one number, and one special characters.!"),
     body('address')
         .trim()
@@ -70,7 +70,7 @@ const validatorUserUpdatePassword = [
         .notEmpty()
         .withMessage("Password is required, Enter your new password")
         .isLength({ min: 8 })
-        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$/)
         .withMessage(
             "Password should content at least one uppercase letter, one lowercase letter, one number, and one special characters.!"
         )
@@ -94,9 +94,29 @@ const validatorUserForgetPassword = [
         .isEmail()
         .withMessage("Invalid email address!"),
 ]
+
+// Reset Password validator 
+const validatorUserResetPassword = [
+    body('token')
+        .trim()
+        .notEmpty()
+        .withMessage("Your Token is missing"),
+    body('newPassword')
+        .trim()
+        .notEmpty()
+        .withMessage("Password is required, Enter your new password")
+        .isLength({ min: 8 })
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$/)
+        .withMessage(
+            "Password should content at least one uppercase letter, one lowercase letter, one number, and one special characters.!"
+        )
+    ,
+]
+
 module.exports = {
     validatorUserRegistration,
     validatorUserLogin,
     validatorUserUpdatePassword,
-    validatorUserForgetPassword
+    validatorUserForgetPassword,
+    validatorUserResetPassword
 }

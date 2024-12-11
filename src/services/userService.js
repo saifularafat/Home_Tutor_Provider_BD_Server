@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
 
 const User = require("../models/userModel");
 const { findWithId } = require('./findWithId');
@@ -223,6 +224,37 @@ const forgetPasswordByEmail = async (email) => {
     }
 }
 
+// user reset Password By email service handel
+const resetPassword = async (token, newPassword) => {
+    try {
+        // verify jwt token
+        const decoded = jwt.verify(token, jwtResetPasswordKey);
+        if (!decoded) {
+            throw createError(400, 'Invalid or expired token.')
+        }
+
+        // Hash the new password
+        const updatePassword = await bcrypt.hash(newPassword, 10);
+
+        // update options
+        const filter = { email: decoded.email };
+        const updates = { password: updatePassword };
+        const updateOptions = { new: true };
+
+        const updatedUser = await User.findOneAndUpdate(
+            filter,
+            updates,
+            updateOptions
+        ).select('-password');
+
+        if (!updatedUser) {
+            throw createError(400, "Password reset failed.")
+        }
+
+    } catch (error) {
+        throw (error);
+    }
+}
 
 module.exports = {
     findUsers,
@@ -232,5 +264,5 @@ module.exports = {
     handelUserAction,
     updateUserPasswordById,
     forgetPasswordByEmail,
-    // resetPassword,
+    resetPassword,
 }
