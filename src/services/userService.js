@@ -208,12 +208,22 @@ const forgetPasswordByEmail = async (email) => {
             email,
             subject: "Forget Your Password Email",
             html: `
-    <h2>Hello ${userData?.name} !</h2>
-    <p>Please Click Here to <a href="${clientUrl}/api/users/forget-password/${token}"
-        target="_blank"> Forget your password</a>
-     </p>
-    `
-        }
+        <h2>Hello ${userData?.name}!</h2>
+        <p>
+            Please click here to <a href="${clientUrl}/api/users/forget-password/${token}" target="_blank">Forget your password</a>.
+        </p>
+        <p>
+            <b style="color: red;">Warning:</b> Please copy the token carefully. Do not share this token with anyone for security reasons.
+        </p>
+        <p>
+            <span style="color: black; font-size: 18px; font-weight: bold;">Token:</span>
+            <u style="cursor: pointer; color: blue;">${token}</u>
+        </p>
+        <p>
+         If the link does not work, you can manually copy this token and use it to reset your password.
+        </p>
+            `
+        };
 
         // send email with nodemailer
         sendEmail(emailData)
