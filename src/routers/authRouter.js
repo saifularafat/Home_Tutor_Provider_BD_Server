@@ -6,6 +6,7 @@ const {
     handleLogin,
     handleLogout,
     handleRefreshToken,
+    handelProtectedRoute,
 
 } = require("../controllers/authController");
 
@@ -27,6 +28,10 @@ authRouter.post(
 authRouter.get(
     "/refresh-token",
     handleRefreshToken)
+
+authRouter.get(
+    "/protected",
+    handelProtectedRoute)
 
 
 module.exports = authRouter; 

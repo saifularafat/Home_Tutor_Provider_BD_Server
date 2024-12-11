@@ -53,7 +53,7 @@ const handleLogin = async (req, res, next) => {
         const accessToken = createJsonWebToken(
             { user: userInfo },
             jsonAccessKey,
-            '1m')
+            '3h')
         // set up local cookie stor token in the HTTP cookie
         setAccessTokenCookie(res, accessToken)
 
@@ -107,7 +107,7 @@ const handleRefreshToken = async (req, res, next) => {
         const accessToken = createJsonWebToken(
             { user: decodedToken.user },
             jsonAccessKey,
-            "1m");
+            "3h");
         // set up local cookie stor token in the HTTP cookie
         setAccessTokenCookie(res, accessToken)
         return successResponse(res, {
@@ -119,8 +119,21 @@ const handleRefreshToken = async (req, res, next) => {
     }
 }
 
+const handelProtectedRoute = async (req, res, next) => {
+    try {
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "user Protected Router successfully"
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handleLogin,
     handleLogout,
     handleRefreshToken,
+    handelProtectedRoute
 }
