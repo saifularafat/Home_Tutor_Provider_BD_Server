@@ -10,6 +10,7 @@ const { errorResponse } = require("./Helper/responseController");
 const userRouter = require("./routers/userRouter");
 const seedRouter = require("./routers/seedRouter");
 const authRouter = require("./routers/authRouter");
+const tuitionJobRouter = require("./routers/tuitionJobRouter");
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(rateLimitApi); // all api router is work now hit this router secret
 // router api setup 
 app.use('/api/users', userRouter)
 app.use("/api/auth", authRouter);
+app.use("/api/tuition-job", tuitionJobRouter);
 app.use('/api/seed', seedRouter)
 
 

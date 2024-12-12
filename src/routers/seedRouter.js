@@ -1,5 +1,5 @@
 const express = require("express");
-const { seedUser } = require("../controllers/seedControllers");
+const { seedUser, seedTuitionJob } = require("../controllers/seedControllers");
 
 const seedRouter = express.Router();
 
@@ -8,9 +8,8 @@ seedRouter.get("/users",
     seedUser
 )
 
-// seedRouter.get("/products", 
-//     productImageUpload.single("image"), 
-//     seedProducts
-// )
+seedRouter.get("/tuition-job", 
+    seedTuitionJob
+)
 
 module.exports = seedRouter;
