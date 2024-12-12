@@ -84,7 +84,16 @@ const handelProcessRegister = async (req, res, next) => {
         if (userExist) {
             throw createError(409, 'User with this email already exist. Please lon in ')
         }
+
+        // Generate a unique userId
+        const latestUser = await User.findOne().sort({ createdAt: -1 });
+        const uniqueNumber = latestUser && latestUser.userId
+            ? String(parseInt(latestUser.userId.split('-')[1]) + 1).padStart(5, '00100')
+            : '00001';
+        const userId = `HTPBD-${uniqueNumber}`;
+        
         const user = {
+            userId,
             name,
             email,
             password,
