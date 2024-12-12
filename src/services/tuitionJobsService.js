@@ -20,7 +20,17 @@ const getTuitionJobs = async (page = 1, limit = 5, filter = {}) => {
     }
 }
 
+const getSingleTuition = async (slug) => {
+    const tuition = await TuitionJob
+        .findOne({ slug })
+        .lean();
+    if (!tuition) {
+        throw createError(404, 'tuition job not found')
+    }
+    return tuition;
+}
+
 module.exports = {
     getTuitionJobs,
-
+    getSingleTuition,
 }

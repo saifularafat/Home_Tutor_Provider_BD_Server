@@ -9,6 +9,7 @@ const {
 const {
     handelTuitionJobCreate,
     handelGetsTuitionJob,
+    handelGetSingleTuitionJob,
 } = require("../controllers/tuitionJobController");
 
 const tuitionJobRouter = express.Router();
@@ -21,6 +22,11 @@ tuitionJobRouter.post("/",
 
 tuitionJobRouter.get("/",
     handelGetsTuitionJob
+);
+
+//  ^ single product
+tuitionJobRouter.get("/:slug",
+    handelGetSingleTuitionJob
 );
 
 module.exports = tuitionJobRouter;

@@ -1,6 +1,6 @@
 const createError = require('http-errors');
 const { successResponse } = require("../Helper/responseController");
-const { getTuitionJobs } = require('../services/tuitionJobsService');
+const { getTuitionJobs, getSingleTuition } = require('../services/tuitionJobsService');
 
 const handelTuitionJobCreate = async (req, res, next) => {
     try {
@@ -29,7 +29,7 @@ const handelGetsTuitionJob = async (req, res, next) => {
                 { jobLocation: { $regex: searchRegExp } },
             ]
         }
-        
+
         const tuitionJobData = await getTuitionJobs(page, limit, filter)
 
         return successResponse(res, {
@@ -42,9 +42,23 @@ const handelGetsTuitionJob = async (req, res, next) => {
                     currentPage: tuitionJobData.currentPage,
                     previousPage: page - 1,
                     nextPage: page + 1,
-                    totalNumberOfProduct: tuitionJobData.count
+                    totalNumberOfTuition: tuitionJobData.count
                 }
             },
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const handelGetSingleTuitionJob = async (req, res, next) => {
+    try {
+        const { slug } = req.params;
+        const tuition = await getSingleTuition(slug);
+        return successResponse(res, {
+            statusCode: 200,
+            message: `Return a tuition job is successfully.`,
+            payload: tuition,
         })
     } catch (error) {
         next(error)
@@ -54,5 +68,5 @@ const handelGetsTuitionJob = async (req, res, next) => {
 module.exports = {
     handelTuitionJobCreate,
     handelGetsTuitionJob,
-
+    handelGetSingleTuitionJob,
 }
