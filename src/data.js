@@ -100,7 +100,7 @@ const data = {
     blogs: [
         {
             blogCode: "",
-            Title: "Understanding JavaScript Fundamentals",
+            title: "Understanding JavaScript Fundamentals",
             slug: "understanding-javascript-fundamentals",
             image: 'default.png',
             medium: "Online",
@@ -115,7 +115,7 @@ const data = {
         },
         {
             blogCode: "",
-            Title: "Introduction to Web Design",
+            title: "Introduction to Web Design",
             slug: "introduction-to-web-design",
             image: 'default.png',
             medium: "Online",
@@ -130,7 +130,7 @@ const data = {
         },
         {
             blogCode: "",
-            Title: "Effective Study Strategies for Students",
+            title: "Effective Study Strategies for Students",
             slug: "effective-study-strategies",
             image: 'default.png',
             medium: "Offline",

@@ -4,7 +4,7 @@ const blogSchema = new Schema({
     blogCode: {
         type: String,
     },
-    Title: {
+    title: {
         type: String,
         required: [true, "Blog title is required"],
         minlength: [
