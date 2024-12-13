@@ -6,15 +6,56 @@ const {
     getSingleTuition,
     updateTuitionJobById,
     deleteTuitionJobById,
+    createTuitionJob,
 } = require('../services/tuitionJobsService');
 
 const handelTuitionJobCreate = async (req, res, next) => {
     try {
+        const {
+            jobLocation,
+            jobSalary,
+            contactNumber,
+            whatsAppNumber,
+            tutorGender,
+            medium,
+            jobCategory,
+            perWeek,
+            className,
+            subject,
+            jobComment,
+            duration,
+            studentGender,
+            studentSchool,
+            fixedTime,
+            description,
+            userId,
+        } = req.body;
+
+        const tuitionJobData = {
+            jobLocation,
+            jobSalary,
+            contactNumber,
+            whatsAppNumber,
+            tutorGender,
+            medium,
+            jobCategory,
+            perWeek,
+            className,
+            subject,
+            jobComment,
+            duration,
+            studentGender,
+            studentSchool,
+            fixedTime,
+            description,
+            userId,
+        }
+        const newTuitionJob = await createTuitionJob(tuitionJobData);
 
         return successResponse(res, {
             statusCode: 200,
             message: "New tuition job create successfully",
-            payload: {},
+            payload: { newTuitionJob },
         })
     } catch (error) {
         next(error)
