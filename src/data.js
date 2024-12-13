@@ -96,24 +96,77 @@ const data = {
             fixedTime: "4:00 PM to 5:00 PM",
             description: "English tutor required for improving language skills."
         }
+    ],
+    blogs: [
+        {
+            blogCode: "",
+            Title: "Understanding JavaScript Fundamentals",
+            slug: "understanding-javascript-fundamentals",
+            image: 'default.png',
+            medium: "Online",
+            category: "Programming",
+            subject: "JavaScript",
+            studentHelp: "Beginners",
+            description: "A comprehensive guide for beginners to learn JavaScript.",
+            authorName: "John Doe",
+            authorEducationLevel: "Bachelor's in Computer Science",
+            authorStudySubject: "Programming",
+            authorProfession: "Software Developer",
+        },
+        {
+            blogCode: "",
+            Title: "Introduction to Web Design",
+            slug: "introduction-to-web-design",
+            image: 'default.png',
+            medium: "Online",
+            category: "Design",
+            subject: "Web Design",
+            studentHelp: "Aspiring designers",
+            description: "Learn the basics of creating beautiful websites.",
+            authorName: "Jane Smith",
+            authorEducationLevel: "Diploma in Graphic Design",
+            authorStudySubject: "Design",
+            authorProfession: "Web Designer",
+        },
+        {
+            blogCode: "",
+            Title: "Effective Study Strategies for Students",
+            slug: "effective-study-strategies",
+            image: 'default.png',
+            medium: "Offline",
+            category: "Education",
+            subject: "Study Tips",
+            studentHelp: "Students of all levels",
+            description: "Tips and techniques to improve your study habits.",
+            authorName: "Michael Johnson",
+            authorEducationLevel: "Master's in Education",
+            authorStudySubject: "Education",
+            authorProfession: "Educator",
+        },
     ]
 }
+
 data.users.forEach((user, index) => {
     const uniqueNumber = String(index + 1).padStart(5, '00100');
     user.userId = `HTPBD-${uniqueNumber}`;
 });
 
 data.tuitionJobs.forEach((tuition, index) => {
-    // Extract the last word of jobLocation
     const words = tuition.jobLocation.trim().split(" ");
     const lastWord = words[words.length - 1].replace(/[^a-zA-Z]/g, "");
     const jobCodePart = lastWord.slice(0, 3).toUpperCase();
-
-    // Generate a unique 4-digit number based on the index
     const uniqueNumber = String(index + 1).padStart(4, "0");
-
-    // Assign the generated tuitionCode
     tuition.tuitionCode = `${jobCodePart}-${uniqueNumber}`;
+});
+
+data.blogs.forEach((blog, index) => {
+    const initials = blog.authorName
+        .trim()
+        .split(" ") 
+        .map(word => word.charAt(0).toUpperCase())
+        .join(""); 
+    const uniqueNumber = String(index + 1).padStart(4, "0");
+    blog.blogCode = `${initials}-${uniqueNumber}`;
 });
 
 
