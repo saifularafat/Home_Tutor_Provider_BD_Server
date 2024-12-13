@@ -28,6 +28,19 @@ const tuitionJobSchema = new Schema({
                 `${props.value} is not a valid salary! salary must be greater than 0`,
         },
     },
+    contactNumber: {
+        type: String,
+        required: [true, "Your contact phone number is required"],
+        validate: {
+            validator: function (v) {
+                return /^(\+8801|8801|01)[3-9]\d{8}$/.test(v);
+            },
+            message: "Please enter a valid phone number"
+        },
+    },
+    whatsAppNumber: {
+        type: String,
+    },
     tutorGender: {
         type: String,
         required: [true, "Tuition Gender is required"],

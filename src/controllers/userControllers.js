@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 const { successResponse } = require("../Helper/responseController");
-const { findUsers, findUserById, deleteUserById, updateUserById, handelUserAction, updateUserPasswordById, forgetPasswordByEmail, resetPassword } = require("../services/userService");
+const { findUsers, findUserById, deleteUserById, updateUserById, handelUserAction, updateUserPasswordById, forgetPasswordByEmail, resetPassword, findTutors } = require("../services/userService");
 const User = require('../models/userModel');
 const { createJsonWebToken } = require("../Helper/jsonwebtoken");
 const { jsonActivationKey, clientUrl } = require('../secret');
@@ -22,6 +22,28 @@ const handelGetUsers = async (req, res, next) => {
             message: "users were returned successfully",
             payload: {
                 users: users,
+                pagination: pagination,
+            },
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+// ^ get all tutor 
+const handelGetTutor = async (req, res, next) => {
+    try {
+        const search = req.query.search || "";
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 5;
+
+        const { tutors, pagination } = await findTutors(search, limit, page);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "Tutor were returned successfully",
+            payload: {
+                tutors: tutors,
                 pagination: pagination,
             },
         })
@@ -270,4 +292,5 @@ module.exports = {
     handelUpdatePassword,
     handelForgetPassword,
     handelResetPassword,
+    handelGetTutor,
 }

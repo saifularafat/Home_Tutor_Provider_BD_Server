@@ -80,6 +80,8 @@ const handelUpdateTuitionJob = async (req, res, next) => {
         const allowedFields = [
             'jobLocation',
             'jobSalary',
+            'contactNumber',
+            'whatsAppNumber',
             'tutorGender',
             'medium',
             'jobCategory',

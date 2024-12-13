@@ -13,12 +13,13 @@ const {
     handelUpdateTuitionJob,
     handelDeleteTuitionJob,
 } = require("../controllers/tuitionJobController");
+const { validatorTuitionJobCreate } = require("../validators/tuition");
 
 const tuitionJobRouter = express.Router();
 
 tuitionJobRouter.post("/",
-    // validatorUserRegistration,
-    // runValidation,
+    validatorTuitionJobCreate,
+    runValidation,
     handelTuitionJobCreate
 );
 //  ~ All tuition Jobs

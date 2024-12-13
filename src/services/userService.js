@@ -33,7 +33,6 @@ const findUsers = async (search, limit, page) => {
 
         // search don't mach this search Value than error throw
         if (!users || users.length === 0) throw createError(404, "user not found !");
-
         return {
             users,
             pagination: {
@@ -47,6 +46,45 @@ const findUsers = async (search, limit, page) => {
         throw error;
     }
 }
+
+// find all Tutor
+const findTutors = async (search, limit, page) => {
+    try {
+        const searchRegExp = new RegExp(".*" + search + ".*", "i");
+        const filter = {
+            isTutor: true, // Add this condition to filter only tutors
+            $or: [
+                { name: { $regex: searchRegExp } },
+                { phone: { $regex: searchRegExp } },
+            ],
+        };
+        // don't show all users password
+        const options = { password: 0 }
+        const tutors = await User
+            .find(filter, options)
+            .limit(limit)
+            .skip((page - 1) * limit);
+
+        // Total page get in an all tutors 
+        const count = await User.find(filter).countDocuments();
+
+        // search don't mach this search Value than error throw
+        if (!tutors || tutors.length === 0) throw createError(404, "Tutor not found !");
+
+        return {
+            tutors,
+            pagination: {
+                totalPage: Math.ceil(count / limit),
+                currentPage: page,
+                previousPage: page - 1 > 0 ? page - 1 : null,
+                nextPage: page + 1 <= Math.ceil(count / limit) ? page + 1 : null,
+            },
+        };
+    } catch (error) {
+        throw error;
+    }
+}
+
 // single user by id
 const findUserById = async (id, options = {}) => {
     try {
@@ -275,4 +313,5 @@ module.exports = {
     updateUserPasswordById,
     forgetPasswordByEmail,
     resetPassword,
+    findTutors,
 }

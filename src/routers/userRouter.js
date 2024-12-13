@@ -10,6 +10,7 @@ const {
     handelUpdatePassword,
     handelForgetPassword,
     handelResetPassword,
+    handelGetTutor,
 } = require("../controllers/userControllers");
 
 const { userImageUpload } = require("../middlewares/uploadFile");
@@ -40,6 +41,10 @@ userRouter.get('/',
     isLoggedIn,
     isAdmin,
     handelGetUsers);
+    
+userRouter.get('/all-tutor',
+    handelGetTutor);
+
 userRouter.get('/:id([0-9a-fA-F]{24})',
     isLoggedIn,
     handelGetUserById);
