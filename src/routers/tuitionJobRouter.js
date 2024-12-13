@@ -10,6 +10,7 @@ const {
     handelTuitionJobCreate,
     handelGetsTuitionJob,
     handelGetSingleTuitionJob,
+    handelUpdateTuitionJob,
 } = require("../controllers/tuitionJobController");
 
 const tuitionJobRouter = express.Router();
@@ -19,14 +20,22 @@ tuitionJobRouter.post("/",
     // runValidation,
     handelTuitionJobCreate
 );
-
+//  ~ All tuition Jobs
 tuitionJobRouter.get("/",
     handelGetsTuitionJob
 );
 
-//  ^ single product
-tuitionJobRouter.get("/:slug",
+//  ^ single tuition Job
+tuitionJobRouter.get("/:id",
     handelGetSingleTuitionJob
+);
+
+//  & update Category
+tuitionJobRouter.put("/:id",
+    // runValidation,
+    // isLoggedIn,
+    // isAdmin,
+    handelUpdateTuitionJob
 );
 
 module.exports = tuitionJobRouter;

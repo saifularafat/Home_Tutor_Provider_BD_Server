@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+const slugify = require("slugify")
 const TuitionJob = require("../models/tuitionJobModel");
 
 const getTuitionJobs = async (page = 1, limit = 5, filter = {}) => {
@@ -20,9 +21,9 @@ const getTuitionJobs = async (page = 1, limit = 5, filter = {}) => {
     }
 }
 
-const getSingleTuition = async (slug) => {
+const getSingleTuition = async (id) => {
     const tuition = await TuitionJob
-        .findOne({ slug })
+        .findOne({ _id: id })
         .lean();
     if (!tuition) {
         throw createError(404, 'tuition job not found')
@@ -30,7 +31,25 @@ const getSingleTuition = async (slug) => {
     return tuition;
 }
 
+const updateTuitionJobBySlug = async (id, updates, updateOptions) => {
+    try {
+        const updatedTuitionJob = await TuitionJob.findOneAndUpdate(
+            { _id: id },
+            updates,
+            updateOptions,
+        )
+        if (!updatedTuitionJob) {
+            throw createError(404, "Updating Tuition Job was not possible.")
+        }
+        return updatedTuitionJob;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 module.exports = {
     getTuitionJobs,
     getSingleTuition,
+    updateTuitionJobBySlug
 }

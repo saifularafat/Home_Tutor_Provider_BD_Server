@@ -44,7 +44,7 @@ const tuitionJobSchema = new Schema({
         type: Number,
         required: [true, "tuition Per Week is required"],
     },
-    class: {
+    className: {
         type: String,
         required: [true, "tuition Class is required"],
     },

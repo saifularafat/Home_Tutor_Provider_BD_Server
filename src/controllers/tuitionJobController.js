@@ -1,6 +1,7 @@
 const createError = require('http-errors');
+const slugify = require("slugify")
 const { successResponse } = require("../Helper/responseController");
-const { getTuitionJobs, getSingleTuition } = require('../services/tuitionJobsService');
+const { getTuitionJobs, getSingleTuition, updateTuitionJobBySlug } = require('../services/tuitionJobsService');
 
 const handelTuitionJobCreate = async (req, res, next) => {
     try {
@@ -53,8 +54,8 @@ const handelGetsTuitionJob = async (req, res, next) => {
 
 const handelGetSingleTuitionJob = async (req, res, next) => {
     try {
-        const { slug } = req.params;
-        const tuition = await getSingleTuition(slug);
+        const { id } = req.params;
+        const tuition = await getSingleTuition(id);
         return successResponse(res, {
             statusCode: 200,
             message: `Return a tuition job is successfully.`,
@@ -65,8 +66,55 @@ const handelGetSingleTuitionJob = async (req, res, next) => {
     }
 }
 
+const handelUpdateTuitionJob = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const updateOptions = { new: true, context: 'query' };
+        let updates = {}
+
+        const allowedFields = [
+            'jobLocation',
+            'jobSalary',
+            'tutorGender',
+            'medium',
+            'jobCategory',
+            'perWeek',
+            'className',
+            'subject',
+            'jobComment',
+            'duration',
+            'studentGender',
+            'studentSchool',
+            'fixedTime',
+            'description'
+        ]
+        for (const key in req.body) {
+            if (allowedFields.includes(key)) {
+                if (key === 'jobLocation') {
+                    updates.slug = slugify(req.body[key]);
+                }
+                updates[key] = req.body[key];
+            }
+        }
+        const updateTuition = await updateTuitionJobBySlug(
+            id,
+            updates,
+            updateOptions,
+        )
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "Tuition Job was update successfully",
+            payload: {updateTuition},
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelTuitionJobCreate,
     handelGetsTuitionJob,
     handelGetSingleTuitionJob,
+    handelUpdateTuitionJob
 }
