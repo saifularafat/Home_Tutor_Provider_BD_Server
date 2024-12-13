@@ -1,7 +1,12 @@
 const createError = require('http-errors');
 const slugify = require("slugify")
 const { successResponse } = require("../Helper/responseController");
-const { getTuitionJobs, getSingleTuition, updateTuitionJobBySlug } = require('../services/tuitionJobsService');
+const {
+    getTuitionJobs,
+    getSingleTuition,
+    updateTuitionJobById,
+    deleteTuitionJobById,
+} = require('../services/tuitionJobsService');
 
 const handelTuitionJobCreate = async (req, res, next) => {
     try {
@@ -96,7 +101,7 @@ const handelUpdateTuitionJob = async (req, res, next) => {
                 updates[key] = req.body[key];
             }
         }
-        const updateTuition = await updateTuitionJobBySlug(
+        const updateTuition = await updateTuitionJobById(
             id,
             updates,
             updateOptions,
@@ -105,7 +110,21 @@ const handelUpdateTuitionJob = async (req, res, next) => {
         return successResponse(res, {
             statusCode: 200,
             message: "Tuition Job was update successfully",
-            payload: {updateTuition},
+            payload: { updateTuition },
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const handelDeleteTuitionJob = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        await deleteTuitionJobById(id);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "tuition job deleted successfully",
         })
     } catch (error) {
         next(error)
@@ -116,5 +135,6 @@ module.exports = {
     handelTuitionJobCreate,
     handelGetsTuitionJob,
     handelGetSingleTuitionJob,
-    handelUpdateTuitionJob
+    handelUpdateTuitionJob,
+    handelDeleteTuitionJob
 }

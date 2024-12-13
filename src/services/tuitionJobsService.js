@@ -31,7 +31,7 @@ const getSingleTuition = async (id) => {
     return tuition;
 }
 
-const updateTuitionJobBySlug = async (id, updates, updateOptions) => {
+const updateTuitionJobById = async (id, updates, updateOptions) => {
     try {
         const updatedTuitionJob = await TuitionJob.findOneAndUpdate(
             { _id: id },
@@ -47,9 +47,21 @@ const updateTuitionJobBySlug = async (id, updates, updateOptions) => {
     }
 }
 
+const deleteTuitionJobById = async (id) => {
+    try {
+        const tuitionJob = await TuitionJob.findOneAndDelete({ _id: id });
+        if (!tuitionJob) {
+            throw createError(404, 'No tuition job found.')
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 module.exports = {
     getTuitionJobs,
     getSingleTuition,
-    updateTuitionJobBySlug
+    updateTuitionJobById,
+    deleteTuitionJobById
 }

@@ -11,6 +11,7 @@ const {
     handelGetsTuitionJob,
     handelGetSingleTuitionJob,
     handelUpdateTuitionJob,
+    handelDeleteTuitionJob,
 } = require("../controllers/tuitionJobController");
 
 const tuitionJobRouter = express.Router();
@@ -38,4 +39,10 @@ tuitionJobRouter.put("/:id",
     handelUpdateTuitionJob
 );
 
+//  * Delete Category
+tuitionJobRouter.delete("/:id",
+    // isLoggedIn,
+    // isAdmin,
+    handelDeleteTuitionJob
+);
 module.exports = tuitionJobRouter;

@@ -45,7 +45,7 @@ const data = {
             medium: "English Medium",
             jobCategory: "Math Tutor",
             perWeek: 3,
-            class: "Class 8",
+            className: "Class 8",
             subject: "Mathematics",
             jobComment: "Must have 2 years of experience.",
             duration: "3 months",
@@ -63,7 +63,7 @@ const data = {
             medium: "Bangla Medium",
             jobCategory: "Science Tutor",
             perWeek: 4,
-            class: "Class 10",
+            className: "Class 10",
             subject: "Physics, Chemistry, Biology",
             jobComment: "Should be flexible with timings.",
             duration: "6 months",
@@ -81,7 +81,7 @@ const data = {
             medium: "English Version",
             jobCategory: "Language Tutor",
             perWeek: 2,
-            class: "Class 5",
+            className: "Class 5",
             subject: "English, Literature",
             jobComment: "Preferably with experience in creative writing.",
             duration: "1 month",
@@ -100,8 +100,8 @@ data.users.forEach((user, index) => {
 data.tuitionJobs.forEach((tuition, index) => {
     // Extract the last word of jobLocation
     const words = tuition.jobLocation.trim().split(" ");
-    const lastWord = words[words.length - 1].replace(/[^a-zA-Z]/g, ""); 
-    const jobCodePart = lastWord.slice(0, 3).toUpperCase(); 
+    const lastWord = words[words.length - 1].replace(/[^a-zA-Z]/g, "");
+    const jobCodePart = lastWord.slice(0, 3).toUpperCase();
 
     // Generate a unique 4-digit number based on the index
     const uniqueNumber = String(index + 1).padStart(4, "0");
