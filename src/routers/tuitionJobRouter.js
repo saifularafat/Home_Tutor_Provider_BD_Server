@@ -35,14 +35,14 @@ tuitionJobRouter.get("/:id",
 //  & update Category
 tuitionJobRouter.put("/:id",
     // runValidation,
-    // isLoggedIn,
+    isLoggedIn,
     // isAdmin,
     handelUpdateTuitionJob
 );
 
 //  * Delete Category
 tuitionJobRouter.delete("/:id",
-    // isLoggedIn,
+    isLoggedIn,
     // isAdmin,
     handelDeleteTuitionJob
 );
