@@ -31,8 +31,54 @@ const getSingleBlog = async (slug) => {
         throw error;
     }
 }
+
+const updateBlogById = async (id, req) => {
+    try {
+        const updateOptions = { new: true, context: 'query' };
+        let updates = {}
+        const allowedFields = [
+            'title',
+            'medium',
+            'category',
+            'subject',
+            'studentHelp',
+            'description',
+            'authorEducationLevel',
+            'authorStudySubject',
+            'authorProfession',
+        ]
+        for (const key in req.body) {
+            if (allowedFields.includes(key)) {
+                if (key === 'title') {
+                    updates.slug = slugify(req.body[key]);
+                }
+                updates[key] = req.body[key];
+            }
+        }
+        const image = req.file;
+        if (image) {
+            if (image.size > 1024 * 1024 * 2) {
+                throw createError(400, "Image file is too large. It must be less than 2 MB.")
+            }
+            updates.image = image.buffer.toString('base64')
+        }
+
+        const updatedBlog = await Blog.findByIdAndUpdate(
+            id,
+            updates,
+            updateOptions,
+        )
+        if (!updatedBlog) {
+            throw createError(404, "Blog with this ID don's not exist.")
+        }
+        return updatedBlog;
+    } catch (error) {
+        throw error;
+    }
+}
 module.exports = {
     getBlogs,
     getSingleBlog,
+    updateBlogById,
 
 }
