@@ -59,6 +59,10 @@ const blogSchema = new Schema({
         type: String,
         required: [true, "Blog is required"],
     },
+    userId: {
+        type: String,
+        required: [true, "User id is required"],
+    },
 
 }, { timestamps: true })
 

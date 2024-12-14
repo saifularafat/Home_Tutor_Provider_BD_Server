@@ -1,7 +1,59 @@
 const createError = require('http-errors');
 const slugify = require("slugify")
 const { successResponse } = require("../Helper/responseController");
-const { getBlogs, getSingleBlog, updateBlogById, deleteBlogById } = require('../services/blogService');
+const { getBlogs, getSingleBlog, updateBlogById, deleteBlogById, createBlog } = require('../services/blogService');
+
+const handelCreateBlog = async (req, res, next) => {
+    try {
+        const {
+            title,
+            medium,
+            category,
+            subject,
+            studentHelp,
+            description,
+            authorName,
+            authorEducationLevel,
+            authorStudySubject,
+            authorProfession,
+            userId,
+        } = req.body;
+
+        const image = req.file;
+        // check the image filed 
+        if (!image) {
+            throw createError(400, "Image file is required!")
+        }
+        // check the image size 
+        if (image.size > 1024 * 1024 * 2) {
+            throw createError(400, "Image file is too large. It must be less than 2 MB.")
+        }
+        const imageBufferString = image.buffer.toString('base64');
+
+        const blogData = {
+            title,
+            image: imageBufferString,
+            medium,
+            category,
+            subject,
+            studentHelp,
+            description,
+            authorName,
+            authorEducationLevel,
+            authorStudySubject,
+            authorProfession,
+            userId,
+        }
+        const blog = await createBlog(blogData);
+        return successResponse(res, {
+            statusCode: 201,
+            message: `New blog is create successfully.`,
+            payload: {blog}
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 
 const handelGetBlogs = async (req, res, next) => {
     try {
@@ -87,6 +139,7 @@ const handelDeleteBlog = async (req, res, next) => {
 }
 
 module.exports = {
+    handelCreateBlog,
     handelGetBlogs,
     handelGetSingleBlog,
     handelUpdateBlog,

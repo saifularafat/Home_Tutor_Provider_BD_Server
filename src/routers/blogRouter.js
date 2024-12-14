@@ -11,10 +11,15 @@ const {
     handelGetSingleBlog,
     handelUpdateBlog,
     handelDeleteBlog,
+    handelCreateBlog,
 } = require("../controllers/blogController");
 const { userImageUpload } = require("../middlewares/uploadFile");
 
 const blogRouter = express.Router();
+
+blogRouter.post('/',
+    userImageUpload.single("image"),
+    handelCreateBlog)
 
 blogRouter.get('/', handelGetBlogs)
 
