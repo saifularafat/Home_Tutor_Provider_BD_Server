@@ -14,11 +14,14 @@ const {
     handelCreateBlog,
 } = require("../controllers/blogController");
 const { userImageUpload } = require("../middlewares/uploadFile");
+const { validatorBlog } = require("../validators/blog");
 
 const blogRouter = express.Router();
 
 blogRouter.post('/',
     userImageUpload.single("image"),
+    validatorBlog,
+    runValidation,
     handelCreateBlog)
 
 blogRouter.get('/', handelGetBlogs)
