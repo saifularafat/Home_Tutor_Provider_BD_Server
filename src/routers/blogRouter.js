@@ -22,6 +22,7 @@ blogRouter.post('/',
     userImageUpload.single("image"),
     validatorBlog,
     runValidation,
+    isLoggedIn,
     handelCreateBlog)
 
 blogRouter.get('/', handelGetBlogs)

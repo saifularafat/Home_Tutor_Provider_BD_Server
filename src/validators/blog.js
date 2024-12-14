@@ -53,6 +53,10 @@ const validatorBlog = [
         .trim()
         .notEmpty()
         .withMessage("Author profession is required"),
+    body('userId')
+        .trim()
+        .notEmpty()
+        .withMessage("Author user id is required"),
 ]
 
 module.exports = { validatorBlog }
