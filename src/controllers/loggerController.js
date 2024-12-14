@@ -9,14 +9,14 @@ const logger = createLogger({
         new transports.File({
             filename: 'src/logs/info.log',
             level: 'info',
-            // maxsize: 5242880, //5mb
-            // maxFiles: 5,
+            maxsize: 5242880, //5mb
+            maxFiles: 25,
         }),
         new transports.File({
             filename: 'src/logs/error.log',
             level: 'error',
-            // maxsize: 5242880, //5mb
-            // maxFiles: 5,
+            maxsize: 5242880, //5mb
+            maxFiles: 15,
         }),
     ],
 });

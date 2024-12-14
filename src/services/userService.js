@@ -52,7 +52,7 @@ const findTutors = async (search, limit, page) => {
     try {
         const searchRegExp = new RegExp(".*" + search + ".*", "i");
         const filter = {
-            isTutor: true, // Add this condition to filter only tutors
+            isTutor: true,
             $or: [
                 { name: { $regex: searchRegExp } },
                 { phone: { $regex: searchRegExp } },
@@ -118,7 +118,6 @@ const updateUserById = async (userId, req) => {
 
         const updateOptions = { new: true, runValidators: true, context: 'query' };
         let updates = {}
-        // name, email, password, image, phone, address
         const allowedFields = ['name', 'password', 'phone', 'address', 'gender',]
         for (const key in req.body) {
             if (allowedFields.includes(key)) {
@@ -128,7 +127,7 @@ const updateUserById = async (userId, req) => {
                 throw createError(400, "Email can not be updated.")
             }
         }
-        // image update verify
+
         const image = req.file;
         if (image) {
             if (image.size > 1024 * 1024 * 2) {
@@ -181,12 +180,10 @@ const handelUserAction = async (id, action) => {
     }
 }
 
-
 // user password update service handel
 const updateUserPasswordById = async (userId, oldPassword, newPassword, confirmedPassword) => {
     try {
         const user = await User.findOne({ _id: userId });
-        console.log('email', user);
         if (!user) {
             throw createError(400, 'User Email is not found.')
         }
@@ -195,13 +192,11 @@ const updateUserPasswordById = async (userId, oldPassword, newPassword, confirme
         if (newPassword !== confirmedPassword) {
             throw createError(400, 'New password and confirmed password did not match');
         }
-
         // compare the password
         const isPasswordMatch = await bcrypt.compare(oldPassword, user.password)
         if (!isPasswordMatch) {
             throw createError(401, 'old password is incorrect')
         }
-
         // Hash the new password
         const updatePassword = await bcrypt.hash(newPassword, 10);
 
@@ -226,6 +221,7 @@ const updateUserPasswordById = async (userId, oldPassword, newPassword, confirme
         throw (error);
     }
 }
+
 const forgetPasswordByEmail = async (email) => {
     try {
         const userData = await User.findOne({ email: email });
@@ -280,10 +276,8 @@ const resetPassword = async (token, newPassword) => {
         if (!decoded) {
             throw createError(400, 'Invalid or expired token.')
         }
-
         // Hash the new password
         const updatePassword = await bcrypt.hash(newPassword, 10);
-
         // update options
         const filter = { email: decoded.email };
         const updates = { password: updatePassword };

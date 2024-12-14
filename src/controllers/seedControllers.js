@@ -5,13 +5,9 @@ const Blog = require("../models/blogModel")
 
 const seedUser = async (req, res, next) => {
     try {
-        // deleting all existing users data
         await User.deleteMany({})
 
-        // insertIn new user is existing
         const users = await User.insertMany(data.users)
-
-        // success message
         return res.status(201).json(users)
     } catch (error) {
         next(error)
@@ -20,13 +16,9 @@ const seedUser = async (req, res, next) => {
 
 const seedTuitionJob = async (req, res, next) => {
     try {
-        // deleting all existing users data
         await TuitionJob.deleteMany({})
 
-        // insertIn new user is existing
         const tuition = await TuitionJob.insertMany(data.tuitionJobs)
-
-        // success message
         return res.status(201).json(tuition)
     } catch (error) {
         next(error)
@@ -35,13 +27,9 @@ const seedTuitionJob = async (req, res, next) => {
 
 const seedBlogs = async (req, res, next) => {
     try {
-        // deleting all existing users data
         await Blog.deleteMany({})
 
-        // insertIn new user is existing
         const tuition = await Blog.insertMany(data.blogs)
-
-        // success message
         return res.status(201).json(tuition)
     } catch (error) {
         next(error)

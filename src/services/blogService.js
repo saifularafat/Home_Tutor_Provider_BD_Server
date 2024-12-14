@@ -20,18 +20,9 @@ const createBlog = async (blogData) => {
             userId,
         } = blogData;
 
-        // const initials = blogData.authorName
-        //     .trim()
-        //     .split(" ")
-        //     .map(word => word.charAt(0).toUpperCase())
-        //     .join("");
-        // const uniqueNumber = String(index + 1).padStart(4, "0");
-        // blogData.blogCode = `${initials}-${uniqueNumber}`;
-
          if (!authorName || typeof authorName !== 'string' || authorName.trim().length === 0) {
             throw new Error("Author name is required and must be a non-empty string.");
         }
-
         // Generate initials
         const initials = authorName
             .trim()

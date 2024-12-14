@@ -92,7 +92,6 @@ const handelProcessRegister = async (req, res, next) => {
     try {
         const { name, email, password, phone, address, gender } = req.body;
         const image = req.file;
-        // check the image filed 
         if (!image) {
             throw createError(400, "Image file is required!")
         }
@@ -102,7 +101,6 @@ const handelProcessRegister = async (req, res, next) => {
         }
         const imageBufferString = image.buffer.toString('base64');
         const userExist = await checkUserExists(email);
-
         if (userExist) {
             throw createError(409, 'User with this email already exist. Please lon in ')
         }
@@ -129,7 +127,6 @@ const handelProcessRegister = async (req, res, next) => {
             user,
             jsonActivationKey,
             '1h')
-
         // prepare user Email
         const emailData = {
             email,
@@ -143,7 +140,6 @@ const handelProcessRegister = async (req, res, next) => {
         }
         // send email with nodemailer
         await sendEmail(emailData);
-
         return successResponse(res, {
             statusCode: 200,
             message: `please go to your ${email} for completing your registration process`,
@@ -158,20 +154,16 @@ const handelProcessRegister = async (req, res, next) => {
 const handelActivateUsersAccount = async (req, res, next) => {
     try {
         const token = req.body.token;
-
         if (!token) throw createError(404, 'Token not found!')
 
         try {
             const decoded = jwt.verify(token, jsonActivationKey)
 
             if (!decoded) throw createError(401, 'unable to verify user!')
-
-            // const userExists = await User.exists({ email: decoded?.email });
             const userExists = await checkUserExists(decoded?.email);
             if (userExists) {
                 throw createError(409, "user email already exists. Please Sign in!")
             }
-
             await User.create(decoded);
 
             return successResponse(res, {

@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const slugify = require("slugify")
 const { successResponse } = require("../Helper/responseController");
 const {
@@ -69,14 +68,12 @@ const handelGetsTuitionJob = async (req, res, next) => {
         const limit = parseInt(req.query.limit) || 5;
 
         const searchRegExp = new RegExp(".*" + search + ".*", "i");
-
         const filter = {
             $or: [
                 { tuitionCode: { $regex: searchRegExp } },
                 { jobLocation: { $regex: searchRegExp } },
             ]
         }
-
         const tuitionJobData = await getTuitionJobs(page, limit, filter)
 
         return successResponse(res, {
@@ -104,7 +101,7 @@ const handelGetSingleTuitionJob = async (req, res, next) => {
         const tuition = await getSingleTuition(id);
         return successResponse(res, {
             statusCode: 200,
-            message: `Return a tuition job is successfully.`,
+            message: `Return tuition job is successfully.`,
             payload: tuition,
         })
     } catch (error) {

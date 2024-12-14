@@ -1,5 +1,4 @@
 const createError = require('http-errors');
-const slugify = require("slugify")
 const { successResponse } = require("../Helper/responseController");
 const { getBlogs, getSingleBlog, updateBlogById, deleteBlogById, createBlog } = require('../services/blogService');
 
@@ -20,7 +19,6 @@ const handelCreateBlog = async (req, res, next) => {
         } = req.body;
 
         const image = req.file;
-        // check the image filed 
         if (!image) {
             throw createError(400, "Image file is required!")
         }
@@ -71,7 +69,6 @@ const handelGetBlogs = async (req, res, next) => {
                 { authorName: { $regex: searchRegExp } },
             ]
         }
-
         const blogData = await getBlogs(page, limit, filter)
 
         return successResponse(res, {

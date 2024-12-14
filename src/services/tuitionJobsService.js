@@ -118,7 +118,6 @@ const deleteTuitionJobById = async (id) => {
     }
 }
 
-
 module.exports = {
     createTuitionJob,
     getTuitionJobs,
