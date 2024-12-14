@@ -76,9 +76,19 @@ const updateBlogById = async (id, req) => {
         throw error;
     }
 }
+
+const deleteBlogById = async (id) => {
+    try {
+        const blog = await Blog.findOneAndDelete({ _id: id });
+        if (!blog) throw createError(404, 'This Blog Id is not found.')
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     getBlogs,
     getSingleBlog,
     updateBlogById,
-
+    deleteBlogById,
 }

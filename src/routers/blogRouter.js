@@ -6,11 +6,12 @@ const {
     isLoggedOut,
     isAdmin,
 } = require("../middlewares/auth");
-const { 
-    handelGetBlogs, 
+const {
+    handelGetBlogs,
     handelGetSingleBlog,
     handelUpdateBlog,
- } = require("../controllers/blogController");
+    handelDeleteBlog,
+} = require("../controllers/blogController");
 const { userImageUpload } = require("../middlewares/uploadFile");
 
 const blogRouter = express.Router();
@@ -18,10 +19,15 @@ const blogRouter = express.Router();
 blogRouter.get('/', handelGetBlogs)
 
 blogRouter.get('/:slug',
-     handelGetSingleBlog)
+    handelGetSingleBlog)
 
 blogRouter.put('/:id([0-9a-fA-F]{24})',
     userImageUpload.single("image"),
-     handelUpdateBlog)
+    isLoggedIn,
+    handelUpdateBlog)
+
+blogRouter.delete('/:id([0-9a-fA-F]{24})',
+    isLoggedIn,
+    handelDeleteBlog)
 
 module.exports = blogRouter;

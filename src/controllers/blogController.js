@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const slugify = require("slugify")
 const { successResponse } = require("../Helper/responseController");
-const { getBlogs, getSingleBlog, updateBlogById } = require('../services/blogService');
+const { getBlogs, getSingleBlog, updateBlogById, deleteBlogById } = require('../services/blogService');
 
 const handelGetBlogs = async (req, res, next) => {
     try {
@@ -52,7 +52,7 @@ const handelGetSingleBlog = async (req, res, next) => {
         }
         )
     } catch (error) {
-        throw createError(error)
+        next(error)
     }
 }
 
@@ -72,8 +72,23 @@ const handelUpdateBlog = async (req, res, next) => {
     }
 }
 
+const handelDeleteBlog = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        await deleteBlogById(id);
+        return successResponse(res, {
+            statusCode: 201,
+            message: `Delete were blog successfully.`,
+        }
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelGetBlogs,
     handelGetSingleBlog,
     handelUpdateBlog,
+    handelDeleteBlog,
 }
