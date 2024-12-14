@@ -22,7 +22,17 @@ const getBlogs = async (page = 1, limit = 5, filter = {}) => {
     }
 }
 
+const getSingleBlog = async (slug) => {
+    try {
+        const blog = await Blog.findOne({ slug }).lean()
+        if (!blog) throw createError(404, 'This Blog not found.')
+        return blog
+    } catch (error) {
+        throw error;
+    }
+}
 module.exports = {
     getBlogs,
+    getSingleBlog,
 
 }

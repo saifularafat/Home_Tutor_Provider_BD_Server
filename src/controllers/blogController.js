@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const slugify = require("slugify")
 const { successResponse } = require("../Helper/responseController");
-const { getBlogs } = require('../services/blogService');
+const { getBlogs, getSingleBlog } = require('../services/blogService');
 
 const handelGetBlogs = async (req, res, next) => {
     try {
@@ -41,6 +41,21 @@ const handelGetBlogs = async (req, res, next) => {
     }
 }
 
+const handelGetSingleBlog = async (req, res, next) => {
+    try {
+        const { slug } = req.params;
+        const blog = await getSingleBlog(slug);
+        return successResponse(res, {
+            statusCode: 201,
+            message: `Return Blog successfully.`,
+            payload: { blog }
+        }
+        )
+    } catch (error) {
+        throw createError(error)
+    }
+}
 module.exports = {
     handelGetBlogs,
+    handelGetSingleBlog
 }

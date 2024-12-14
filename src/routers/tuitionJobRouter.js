@@ -29,12 +29,12 @@ tuitionJobRouter.get("/",
 );
 
 //  ^ single tuition Job
-tuitionJobRouter.get("/:id",
+tuitionJobRouter.get("/:id([0-9a-fA-F]{24})",
     handelGetSingleTuitionJob
 );
 
 //  & update Category
-tuitionJobRouter.put("/:id",
+tuitionJobRouter.put("/:id([0-9a-fA-F]{24})",
     // runValidation,
     isLoggedIn,
     // isAdmin,
@@ -42,7 +42,7 @@ tuitionJobRouter.put("/:id",
 );
 
 //  * Delete Category
-tuitionJobRouter.delete("/:id",
+tuitionJobRouter.delete("/:id([0-9a-fA-F]{24})",
     isLoggedIn,
     // isAdmin,
     handelDeleteTuitionJob
