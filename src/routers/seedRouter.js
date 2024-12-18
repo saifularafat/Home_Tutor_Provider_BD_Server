@@ -2,8 +2,9 @@ const express = require("express");
 const {
     seedUser,
     seedTuitionJob,
+    seedTutorRequest,
     seedBlogs,
-    seedRating
+    seedRating,
 } = require("../controllers/seedControllers");
 
 const seedRouter = express.Router();
@@ -15,6 +16,10 @@ seedRouter.get("/users",
 
 seedRouter.get("/tuition-job",
     seedTuitionJob
+)
+
+seedRouter.get("/tutor-request",
+    seedTutorRequest
 )
 
 seedRouter.get("/blogs",
