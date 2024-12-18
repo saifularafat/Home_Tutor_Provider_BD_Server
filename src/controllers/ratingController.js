@@ -1,5 +1,5 @@
 const { successResponse } = require("../Helper/responseController");
-const { getRating, createRating } = require('../services/ratingService');
+const { getRating, createRating, deleteRatingById } = require('../services/ratingService');
 
 const handelCreateRating = async (req, res, next) => {
     try {
@@ -54,7 +54,22 @@ const handelGetRating = async (req, res, next) => {
     }
 }
 
+const handelDeleteRating = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        await deleteRatingById(id);
+        return successResponse(res, {
+            statusCode: 201,
+            message: `Delete were rating successfully.`,
+        }
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelGetRating,
-    handelCreateRating
+    handelCreateRating,
+    handelDeleteRating
 }
