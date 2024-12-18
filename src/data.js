@@ -101,7 +101,7 @@ const data = {
         {
             guardianId: "G1001",
             guardianEmail: "guardian1@example.com",
-            category: "Mathematics",
+            category: "Online",
             location: "Dhaka",
             subLocation: "Dhanmondi",
             guardianPhone: "+8801712345678",
@@ -113,7 +113,7 @@ const data = {
         {
             guardianId: "G1002",
             guardianEmail: "guardian2@example.com",
-            category: "English Literature",
+            category: "Home",
             location: "Chittagong",
             subLocation: "Panchlaish",
             guardianPhone: "+8801812345678",
@@ -125,7 +125,7 @@ const data = {
         {
             guardianId: "G1003",
             guardianEmail: "guardian3@example.com",
-            category: "Physics",
+            category: "Online",
             location: "Sylhet",
             subLocation: "Zindabazar",
             guardianPhone: "+8801912345678",
