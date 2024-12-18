@@ -9,7 +9,7 @@ const { handelGetRating, handelCreateRating } = require("../controllers/ratingCo
 const ratingRouter = express.Router();
 
 ratingRouter.post('/',
-    // isLoggedIn,
+    isLoggedIn,
     handelCreateRating)
 
 ratingRouter.get('/', handelGetRating)

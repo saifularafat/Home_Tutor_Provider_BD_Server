@@ -1,18 +1,27 @@
-const createError = require('http-errors');
 const { successResponse } = require("../Helper/responseController");
-const Rating = require('../models/ratingModel');
-const { getRating } = require('../services/ratingService');
+const { getRating, createRating } = require('../services/ratingService');
 
 const handelCreateRating = async (req, res, next) => {
     try {
-        const rating = await Rating.find();
-        if (!rating) {
-            throw createError(404, 'Rating Not Found')
+        const {
+            guardianId,
+            guardianEmail,
+            rating,
+            review
+        } = req.body;
+
+        const ratingData = {
+            guardianId,
+            guardianEmail,
+            rating,
+            review
         }
+        const newRating = await createRating(ratingData);
+
         return successResponse(res, {
             statusCode: 201,
-            message: `Get Rating successfully.`,
-            payload: { rating }
+            message: `create rating successfully.`,
+            payload: { newRating }
         })
     } catch (error) {
         next(error)

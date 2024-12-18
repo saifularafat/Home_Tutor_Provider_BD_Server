@@ -5,10 +5,6 @@ const ratingSchema = new Schema({
         type: String,
         required: [true, "User ID is required"],
     },
-    guardianName: {
-        type: String,
-        required: [true, "User Name is required"],
-    },
     guardianEmail: {
         type: String,
         required: [true, "User Name is required"],

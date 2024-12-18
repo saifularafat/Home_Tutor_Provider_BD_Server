@@ -147,21 +147,18 @@ const data = {
     ratings: [
         {
             guardianId: "1001",
-            guardianName: "John Doe",
             guardianEmail: "john.doe@example.com",
             rating: 5,
             review: "Excellent service and very friendly.",
         },
         {
             guardianId: "1002",
-            guardianName: "Jane Smith",
             guardianEmail: "jane.smith@example.com",
             rating: 4,
             review: "Very helpful but could improve response time.",
         },
         {
             guardianId: "1003",
-            guardianName: "Alice Johnson",
             guardianEmail: "alice.johnson@example.com",
             rating: 5,
             review: "Fantastic experience, highly recommend!",

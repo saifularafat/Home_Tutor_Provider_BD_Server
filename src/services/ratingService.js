@@ -3,6 +3,21 @@ const slugify = require("slugify");
 const Blog = require('../models/blogModel');
 const Rating = require('../models/ratingModel');
 
+
+
+const createRating = async (ratingData) => {
+    try {
+        // Create a new Rating
+        const newRating = await Rating.create(ratingData);
+
+        return newRating;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 const getRating = async (page = 1, limit = 8) => {
     const rating = await Rating.find()
         .skip((page - 1) * limit)
@@ -20,6 +35,7 @@ const getRating = async (page = 1, limit = 8) => {
         currentPage: page,
     }
 }
+
 module.exports = {
     createRating,
     getRating
