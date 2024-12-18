@@ -143,6 +143,32 @@ const data = {
             authorStudySubject: "Education",
             authorProfession: "Educator",
         },
+    ],
+    ratings: [
+        {
+            guardianId: "1001",
+            guardianName: "John Doe",
+            guardianEmail: "john.doe@example.com",
+            image: Buffer.from("sampleImage1"), 
+            rating: 5,
+            review: "Excellent service and very friendly.",
+        },
+        {
+            guardianId: "1002",
+            guardianName: "Jane Smith",
+            guardianEmail: "jane.smith@example.com",
+            image: Buffer.from("sampleImage2"), 
+            rating: 4,
+            review: "Very helpful but could improve response time.",
+        },
+        {
+            guardianId: "1003",
+            guardianName: "Alice Johnson",
+            guardianEmail: "alice.johnson@example.com",
+            image: Buffer.from("sampleImage3"), 
+            rating: 5,
+            review: "Fantastic experience, highly recommend!",
+        },
     ]
 }
 
@@ -162,9 +188,9 @@ data.tuitionJobs.forEach((tuition, index) => {
 data.blogs.forEach((blog, index) => {
     const initials = blog.authorName
         .trim()
-        .split(" ") 
+        .split(" ")
         .map(word => word.charAt(0).toUpperCase())
-        .join(""); 
+        .join("");
     const uniqueNumber = String(index + 1).padStart(4, "0");
     blog.blogCode = `${initials}-${uniqueNumber}`;
 });
