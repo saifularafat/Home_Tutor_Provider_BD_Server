@@ -13,11 +13,6 @@ const ratingSchema = new Schema({
         type: String,
         required: [true, "User Name is required"],
     },
-    image: {
-        type: Buffer,
-        contentType: String,
-        required: [true, "User image is required"],
-    },
     rating: {
         type: Number,
         required: [true, "Rating is required"],
