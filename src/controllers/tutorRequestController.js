@@ -1,5 +1,5 @@
 const { successResponse } = require("../Helper/responseController");
-const { getTutorRequest, deleteTutorRequestById } = require("../services/tutorRequestService");
+const { getTutorRequest, deleteTutorRequestById, updateTutorRequestById } = require("../services/tutorRequestService");
 
 const handelGetTutorRequest = async (req, res, next) => {
     try {
@@ -37,6 +37,40 @@ const handelGetTutorRequest = async (req, res, next) => {
     }
 }
 
+const handelUpdateTutorRequest = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const updateOptions = { new: true, context: 'query' };
+        let updates = {}
+
+        const allowedFields = [
+            'category',
+            'location',
+            'subLocation',
+            'guardianPhone',
+            'guardianAddress',
+            'comments',
+        ]
+        for (const key in req.body) {
+            if (allowedFields.includes(key)) {
+                updates[key] = req.body[key];
+            }
+        }
+        const updateTutorRequest = await updateTutorRequestById(
+            id,
+            updates,
+            updateOptions,
+        )
+        return successResponse(res, {
+            statusCode: 201,
+            message: `Tutor Request Update successfully.`,
+            payload: { updateTutorRequest },
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 const handelDeleteTutorRequest = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -54,5 +88,6 @@ const handelDeleteTutorRequest = async (req, res, next) => {
 
 module.exports = {
     handelGetTutorRequest,
+    handelUpdateTutorRequest,
     handelDeleteTutorRequest,
 }

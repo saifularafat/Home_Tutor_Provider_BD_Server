@@ -7,15 +7,20 @@ const {
 } = require("../middlewares/auth");
 const {
     handelGetTutorRequest,
+    handelUpdateTutorRequest,
     handelDeleteTutorRequest,
 } = require("../controllers/tutorRequestController");
 
 const tutorRequestRouter = express.Router();
 
-tutorRequestRouter.get('/', 
+tutorRequestRouter.get('/',
     handelGetTutorRequest)
+
+tutorRequestRouter.put("/:id([0-9a-fA-F]{24})",
+    handelUpdateTutorRequest)
+    
 tutorRequestRouter.delete("/:id([0-9a-fA-F]{24})",
-     handelDeleteTutorRequest)
+    handelDeleteTutorRequest)
 
 
 module.exports = tutorRequestRouter;

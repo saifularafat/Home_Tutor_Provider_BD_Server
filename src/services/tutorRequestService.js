@@ -21,6 +21,22 @@ const getTutorRequest = async (page = 1, limit = 5, filter = {}) => {
     }
 }
 
+const updateTutorRequestById = async (id, updates, updateOptions) => {
+    try {
+        const updatedTutorRequest = await TutorRequest.findOneAndUpdate(
+            { _id: id },
+            updates,
+            updateOptions,
+        )
+        if (!updatedTutorRequest) {
+            throw createError(404, "Updating Tutor Request was not possible.")
+        }
+        return updatedTutorRequest;
+    } catch (error) {
+        throw error;
+    }
+}
+
 const deleteTutorRequestById = async (id) => {
     try {
         const tutorRequest = await TutorRequest.findOneAndDelete({ _id: id });
@@ -33,5 +49,6 @@ const deleteTutorRequestById = async (id) => {
 }
 module.exports = {
     getTutorRequest,
+    updateTutorRequestById,
     deleteTutorRequestById
 }
