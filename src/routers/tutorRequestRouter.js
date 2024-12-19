@@ -10,6 +10,7 @@ const {
     handelUpdateTutorRequest,
     handelDeleteTutorRequest,
     handelTutorRequestCreate,
+    handelGetSingleTutorRequest,
 } = require("../controllers/tutorRequestController");
 const { validatorTutorRequestCreate } = require("../validators/tutorRequest");
 
@@ -22,6 +23,9 @@ tutorRequestRouter.post('/',
 
 tutorRequestRouter.get('/',
     handelGetTutorRequest)
+
+tutorRequestRouter.get("/:id([0-9a-fA-F]{24})",
+    handelGetSingleTutorRequest)
 
 tutorRequestRouter.put("/:id([0-9a-fA-F]{24})",
     handelUpdateTutorRequest)

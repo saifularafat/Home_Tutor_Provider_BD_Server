@@ -1,5 +1,5 @@
 const { successResponse } = require("../Helper/responseController");
-const { getTutorRequest, deleteTutorRequestById, updateTutorRequestById, createTutorRequest } = require("../services/tutorRequestService");
+const { getTutorRequest, deleteTutorRequestById, updateTutorRequestById, createTutorRequest, getSingleTutorRequest } = require("../services/tutorRequestService");
 
 
 const handelTutorRequestCreate = async (req, res, next) => {
@@ -77,6 +77,20 @@ const handelGetTutorRequest = async (req, res, next) => {
     }
 }
 
+const handelGetSingleTutorRequest = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const tutorRequest = await getSingleTutorRequest(id);
+        return successResponse(res, {
+            statusCode: 200,
+            message: `tutor request is successfully.`,
+            payload: tutorRequest,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 const handelUpdateTutorRequest = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -129,6 +143,7 @@ const handelDeleteTutorRequest = async (req, res, next) => {
 module.exports = {
     handelTutorRequestCreate,
     handelGetTutorRequest,
+    handelGetSingleTutorRequest,
     handelUpdateTutorRequest,
     handelDeleteTutorRequest,
 }

@@ -30,6 +30,20 @@ const getTutorRequest = async (page = 1, limit = 5, filter = {}) => {
     }
 }
 
+const getSingleTutorRequest = async (id) => {
+    try {
+        const tutorRequest = await TutorRequest
+            .findOne({ _id: id })
+            .lean();
+        if (!tutorRequest) {
+            throw createError(404, 'No tutor request found.')
+        }
+        return tutorRequest;
+    } catch (error) {
+        throw error;
+    }
+}
+
 const updateTutorRequestById = async (id, updates, updateOptions) => {
     try {
         const updatedTutorRequest = await TutorRequest.findOneAndUpdate(
@@ -59,6 +73,7 @@ const deleteTutorRequestById = async (id) => {
 module.exports = {
     createTutorRequest,
     getTutorRequest,
+    getSingleTutorRequest,
     updateTutorRequestById,
     deleteTutorRequestById
 }
