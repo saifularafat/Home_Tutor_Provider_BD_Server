@@ -40,14 +40,14 @@ const TutorRequestSchema = new Schema({
         type: String,
         required: [true, "Guardian Comment is required"],
         minlength: [5, "The length of user Address can be minimum 5 character"],
-    },    
-    tutorId: {
-        type: String,
-        required: [true, "Tutor ID is required"],
     },
     tutorEmail: {
         type: String,
         required: [true, "Tutor Email is required"],
+    },
+    tutorId: {
+        type: String,
+        required: [true, "Tutor ID is required"],
     },
 }, { timestamps: true })
 

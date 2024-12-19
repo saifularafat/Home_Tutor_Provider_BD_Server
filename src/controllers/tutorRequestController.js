@@ -1,5 +1,45 @@
 const { successResponse } = require("../Helper/responseController");
-const { getTutorRequest, deleteTutorRequestById, updateTutorRequestById } = require("../services/tutorRequestService");
+const { getTutorRequest, deleteTutorRequestById, updateTutorRequestById, createTutorRequest } = require("../services/tutorRequestService");
+
+
+const handelTutorRequestCreate = async (req, res, next) => {
+    try {
+        const {
+            guardianId,
+            guardianEmail,
+            category,
+            location,
+            subLocation,
+            guardianPhone,
+            guardianAddress,
+            comments,
+            tutorEmail,
+            tutorId,
+        } = req.body;
+
+        const tutorRequestData = {
+            guardianId,
+            guardianEmail,
+            category,
+            location,
+            subLocation,
+            guardianPhone,
+            guardianAddress,
+            comments,
+            tutorEmail,
+            tutorId,
+        }
+        const newTutorRequest = await createTutorRequest(tutorRequestData);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "New tutor request successfully",
+            payload: { newTutorRequest },
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 
 const handelGetTutorRequest = async (req, res, next) => {
     try {
@@ -87,6 +127,7 @@ const handelDeleteTutorRequest = async (req, res, next) => {
 }
 
 module.exports = {
+    handelTutorRequestCreate,
     handelGetTutorRequest,
     handelUpdateTutorRequest,
     handelDeleteTutorRequest,

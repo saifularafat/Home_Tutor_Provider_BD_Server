@@ -1,6 +1,15 @@
 const createError = require('http-errors');
 const TutorRequest = require('../models/tutorRequestModel');
 
+const createTutorRequest = async (tutorRequestData) => {
+    try {
+        const newTutorRequest = await TutorRequest.create(tutorRequestData);
+        return newTutorRequest;
+    } catch (error) {
+        throw error;
+    }
+}
+
 const getTutorRequest = async (page = 1, limit = 5, filter = {}) => {
 
     const tutorRequest = await TutorRequest.find(filter)
@@ -48,6 +57,7 @@ const deleteTutorRequestById = async (id) => {
     }
 }
 module.exports = {
+    createTutorRequest,
     getTutorRequest,
     updateTutorRequestById,
     deleteTutorRequestById
