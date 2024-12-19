@@ -1,6 +1,5 @@
-const slugify = require("slugify")
 const { successResponse } = require("../Helper/responseController");
-const { getTutorRequest } = require("../services/tutorRequestService");
+const { getTutorRequest, deleteTutorRequestById } = require("../services/tutorRequestService");
 
 const handelGetTutorRequest = async (req, res, next) => {
     try {
@@ -18,7 +17,7 @@ const handelGetTutorRequest = async (req, res, next) => {
             ]
         }
         const tutorRequestData = await getTutorRequest(page, limit, filter)
-        
+
         return successResponse(res, {
             statusCode: 201,
             message: `Return all Tutor Request successfully.`,
@@ -38,6 +37,22 @@ const handelGetTutorRequest = async (req, res, next) => {
     }
 }
 
+const handelDeleteTutorRequest = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        await deleteTutorRequestById(id);
+
+        return successResponse(res, {
+            statusCode: 201,
+            message: `Tutor Request Delete successfully.`,
+            payload: {},
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelGetTutorRequest,
+    handelDeleteTutorRequest,
 }

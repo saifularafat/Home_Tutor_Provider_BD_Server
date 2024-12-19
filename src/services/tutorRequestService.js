@@ -1,7 +1,5 @@
 const createError = require('http-errors');
-const slugify = require("slugify");
 const TutorRequest = require('../models/tutorRequestModel');
-
 
 const getTutorRequest = async (page = 1, limit = 5, filter = {}) => {
 
@@ -23,6 +21,17 @@ const getTutorRequest = async (page = 1, limit = 5, filter = {}) => {
     }
 }
 
+const deleteTutorRequestById = async (id) => {
+    try {
+        const tutorRequest = await TutorRequest.findOneAndDelete({ _id: id });
+        if (!tutorRequest) {
+            throw createError(404, 'No tutor request found.')
+        }
+    } catch (error) {
+        throw error;
+    }
+}
 module.exports = {
     getTutorRequest,
+    deleteTutorRequestById
 }
