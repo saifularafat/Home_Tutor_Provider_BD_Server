@@ -50,8 +50,21 @@ const updateTutorJobApplyById = async (id, updates, updateOptions) => {
     }
 }
 
+
+const deleteTutorJobApplyById = async (id) => {
+    try {
+        const jobApply = await TutorJobApply.findOneAndDelete({ _id: id });
+        if (!jobApply) {
+            throw createError(404, 'No tutor job apply found.')
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     getTutorJobApply,
     getSingleTutorJobApply,
-    updateTutorJobApplyById
+    updateTutorJobApplyById,
+    deleteTutorJobApplyById
 }

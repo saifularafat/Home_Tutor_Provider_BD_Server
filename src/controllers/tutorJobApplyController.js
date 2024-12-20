@@ -2,7 +2,8 @@ const { successResponse } = require("../Helper/responseController");
 const {
     getTutorJobApply,
     getSingleTutorJobApply,
-    updateTutorJobApplyById
+    updateTutorJobApplyById,
+    deleteTutorJobApplyById
 } = require("../services/tutorJobApplyService");
 
 const handelGetTutorJobApply = async (req, res, next) => {
@@ -85,8 +86,24 @@ const handelUpdateTutorJobApply = async (req, res, next) => {
     }
 }
 
+const handelDeleteTutorJobApply = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        await deleteTutorJobApplyById(id);
+
+        return successResponse(res, {
+            statusCode: 201,
+            message: `Tutor job apply delete successfully.`,
+            payload: {},
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelGetTutorJobApply,
     handelGetSingleTutorJobApply,
     handelUpdateTutorJobApply,
+    handelDeleteTutorJobApply
 }
