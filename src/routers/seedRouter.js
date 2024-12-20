@@ -5,6 +5,7 @@ const {
     seedTutorRequest,
     seedBlogs,
     seedRating,
+    seedTutorJobApply,
 } = require("../controllers/seedControllers");
 
 const seedRouter = express.Router();
@@ -20,6 +21,10 @@ seedRouter.get("/tuition-job",
 
 seedRouter.get("/tutor-request",
     seedTutorRequest
+)
+
+seedRouter.get("/job-apply",
+    seedTutorJobApply
 )
 
 seedRouter.get("/blogs",

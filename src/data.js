@@ -97,6 +97,35 @@ const data = {
             description: "English tutor required for improving language skills."
         }
     ],
+     tutorJobApply: [
+        {
+            tutorId: "TUTOR123",
+            tutorEmail: "tutor1@example.com",
+            currentLocation: "Dhaka, Bangladesh",
+            tutorPhone: "+8801734567890",
+            tutorWhatsappNumber: "+8801734567890",
+            jobId: "JOB456",
+            jobEmail: "job1@example.com",
+        },
+        {
+            tutorId: "TUTOR456",
+            tutorEmail: "tutor2@example.com",
+            currentLocation: "Chittagong, Bangladesh",
+            tutorPhone: "+8801934567890",
+            tutorWhatsappNumber: "+8801934567890",
+            jobId: "JOB789",
+            jobEmail: "job2@example.com",
+        },
+        {
+            tutorId: "TUTOR789",
+            tutorEmail: "tutor3@example.com",
+            currentLocation: "Sylhet, Bangladesh",
+            tutorPhone: "+8801834567890",
+            tutorWhatsappNumber: "+8801834567890",
+            jobId: "JOB123",
+            jobEmail: "job3@example.com",
+        },
+    ],
     tutorRequests: [
         {
             guardianId: "G1001",
