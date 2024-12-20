@@ -3,8 +3,43 @@ const {
     getTutorJobApply,
     getSingleTutorJobApply,
     updateTutorJobApplyById,
-    deleteTutorJobApplyById
+    deleteTutorJobApplyById,
+    createTutorJobApply
 } = require("../services/tutorJobApplyService");
+
+
+const handelTutorJobApplyCreate = async (req, res, next) => {
+    try {
+        const {
+            tutorId,
+            tutorEmail,
+            currentLocation,
+            tutorPhone,
+            tutorWhatsappNumber,
+            jobId,
+            jobEmail,
+        } = req.body;
+
+        const tutorJobApplyData = {
+            tutorId,
+            tutorEmail,
+            currentLocation,
+            tutorPhone,
+            tutorWhatsappNumber,
+            jobId,
+            jobEmail,
+        }
+        const newTutorJobApply = await createTutorJobApply(tutorJobApplyData);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "New tutor job apply successfully",
+            payload: { newTutorJobApply },
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 
 const handelGetTutorJobApply = async (req, res, next) => {
     try {
@@ -102,6 +137,7 @@ const handelDeleteTutorJobApply = async (req, res, next) => {
 }
 
 module.exports = {
+    handelTutorJobApplyCreate,
     handelGetTutorJobApply,
     handelGetSingleTutorJobApply,
     handelUpdateTutorJobApply,

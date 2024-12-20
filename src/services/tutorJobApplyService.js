@@ -1,6 +1,15 @@
 const createError = require('http-errors');
 const TutorJobApply = require('../models/tutorJobApplyModel');
 
+const createTutorJobApply = async (tutorJobApplyData) => {
+    try {
+        const newTutorJobApply = await TutorJobApply.create(tutorJobApplyData);
+        return newTutorJobApply;
+    } catch (error) {
+        throw error;
+    }
+}
+
 const getTutorJobApply = async (page = 1, limit = 5, filter = {}) => {
     const tutorJobApplies = await TutorJobApply.find(filter)
         .skip((page - 1) * limit)
@@ -63,6 +72,7 @@ const deleteTutorJobApplyById = async (id) => {
 }
 
 module.exports = {
+    createTutorJobApply,
     getTutorJobApply,
     getSingleTutorJobApply,
     updateTutorJobApplyById,
