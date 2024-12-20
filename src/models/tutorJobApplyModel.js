@@ -37,6 +37,6 @@ const TutorJobApplySchema = new Schema({
     },
 }, { timestamps: true })
 
-const TutorJobApply = model("TutorJobApply", TutorJobApplySchema)
+const TutorJobApply = model("TutorJobApplies", TutorJobApplySchema)
 
 module.exports = TutorJobApply;

@@ -4,7 +4,7 @@ const TuitionJob = require("../models/tuitionJobModel")
 const TutorRequest = require("../models/tutorRequestModel")
 const Blog = require("../models/blogModel")
 const Rating = require("../models/ratingModel")
-const TutorJobApply = require("../models/tutorJobApplyModle")
+const TutorJobApply = require("../models/tutorJobApplyModel")
 
 const seedUser = async (req, res, next) => {
     try {
