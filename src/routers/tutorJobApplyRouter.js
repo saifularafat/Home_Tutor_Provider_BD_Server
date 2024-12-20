@@ -5,14 +5,18 @@ const {
     isLoggedIn,
     isAdmin,
 } = require("../middlewares/auth");
-const { 
+const {
     handelGetTutorJobApply,
- } = require("../controllers/tutorJobApplyController");
+    handelGetSingleTutorJobApply,
+} = require("../controllers/tutorJobApplyController");
 
 const tutorJobApplyRouter = express.Router();
 
 tutorJobApplyRouter.get('/',
     handelGetTutorJobApply)
+
+tutorJobApplyRouter.get("/:id([0-9a-fA-F]{24})",
+    handelGetSingleTutorJobApply)
 
 
 module.exports = tutorJobApplyRouter;

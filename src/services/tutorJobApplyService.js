@@ -19,6 +19,22 @@ const getTutorJobApply = async (page = 1, limit = 5, filter = {}) => {
         currentPage: page,
     }
 }
+
+const getSingleTutorJobApply = async (id) => {
+    try {
+        const jobApply = await TutorJobApply
+            .findOne({ _id: id })
+            .lean();
+        if (!jobApply) {
+            throw createError(404, 'No tutor Job Apply found.')
+        }
+        return jobApply;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     getTutorJobApply,
+    getSingleTutorJobApply,
 }

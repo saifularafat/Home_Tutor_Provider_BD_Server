@@ -1,5 +1,5 @@
 const { successResponse } = require("../Helper/responseController");
-const { getTutorJobApply } = require("../services/tutorJobApplyService");
+const { getTutorJobApply, getSingleTutorJobApply } = require("../services/tutorJobApplyService");
 
 const handelGetTutorJobApply = async (req, res, next) => {
     try {
@@ -17,7 +17,6 @@ const handelGetTutorJobApply = async (req, res, next) => {
             ]
         }
         const jobApplyData = await getTutorJobApply(page, limit, filter)
-        console.log('object', jobApplyData);
         return successResponse(res, {
             statusCode: 201,
             message: `Return tutor Job apply successfully.`,
@@ -27,7 +26,7 @@ const handelGetTutorJobApply = async (req, res, next) => {
                     totalPage: jobApplyData.totalPage,
                     currentPage: jobApplyData.currentPage,
                     previousPage: page - 1,
-                    nextPage: page + 1,
+                    nextPage: page + 1, 
                     totalNumberOfTuition: jobApplyData.count
                 }
             },
@@ -37,6 +36,21 @@ const handelGetTutorJobApply = async (req, res, next) => {
     }
 }
 
+const handelGetSingleTutorJobApply = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const jobApply = await getSingleTutorJobApply(id);
+        return successResponse(res, {
+            statusCode: 200,
+            message: `tutor job Apply is successfully.`,
+            payload: jobApply,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelGetTutorJobApply,
+    handelGetSingleTutorJobApply,
 }

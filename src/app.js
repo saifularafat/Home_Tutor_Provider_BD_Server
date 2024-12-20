@@ -14,7 +14,7 @@ const tuitionJobRouter = require("./routers/tuitionJobRouter");
 const blogRouter = require("./routers/blogRouter");
 const ratingRouter = require("./routers/ratingRouter");
 const tutorRequestRouter = require("./routers/tutorRequestRouter");
-const tutorJobApplyRouter = require("./routers/tutorJobApply");
+const tutorJobApplyRouter = require("./routers/tutorJobApplyRouter");
 
 const app = express();
 
