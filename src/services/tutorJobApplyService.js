@@ -34,7 +34,24 @@ const getSingleTutorJobApply = async (id) => {
     }
 }
 
+const updateTutorJobApplyById = async (id, updates, updateOptions) => {
+    try {
+        const updatedTutorJobApply = await TutorJobApply.findOneAndUpdate(
+            { _id: id },
+            updates,
+            updateOptions,
+        )
+        if (!updatedTutorJobApply) {
+            throw createError(404, "Updating Tutor Job Apply was not possible.")
+        }
+        return updatedTutorJobApply;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     getTutorJobApply,
     getSingleTutorJobApply,
+    updateTutorJobApplyById
 }

@@ -8,6 +8,7 @@ const {
 const {
     handelGetTutorJobApply,
     handelGetSingleTutorJobApply,
+    handelUpdateTutorJobApply,
 } = require("../controllers/tutorJobApplyController");
 
 const tutorJobApplyRouter = express.Router();
@@ -17,6 +18,9 @@ tutorJobApplyRouter.get('/',
 
 tutorJobApplyRouter.get("/:id([0-9a-fA-F]{24})",
     handelGetSingleTutorJobApply)
+
+tutorJobApplyRouter.put("/:id([0-9a-fA-F]{24})",
+    handelUpdateTutorJobApply)
 
 
 module.exports = tutorJobApplyRouter;
