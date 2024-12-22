@@ -1,7 +1,34 @@
-const createError = require('http-errors');
 const { successResponse } = require("../Helper/responseController");
 const Contact = require('../models/contactModel');
-const { getContacts, getSingleContact, deleteContactById } = require('../services/contactService');
+const { getContacts, getSingleContact, deleteContactById, createContact } = require('../services/contactService');
+
+
+const handelContactCreate = async (req, res, next) => {
+    try {
+        const {
+            userId,
+            contactName,
+            contactEmail,
+            message,
+        } = req.body;
+
+        const contactData = {
+            userId,
+            contactName,
+            contactEmail,
+            message,
+        }
+        const newContact = await createContact(contactData);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "Your email is create successfully",
+            payload: { newContact },
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 
 const handelGetContacts = async (req, res, next) => {
     try {
@@ -68,6 +95,7 @@ const handelDeleteContact = async (req, res, next) => {
 }
 
 module.exports = {
+    handelContactCreate,
     handelGetContacts,
     handelGetSingleContact,
     handelDeleteContact,

@@ -10,10 +10,15 @@ const {
     handelGetContacts,
     handelGetSingleContact,
     handelDeleteContact,
+    handelContactCreate,
 } = require("../controllers/contactController");
+const { validatorContactCreate } = require("../validators/contact");
 
 const contactRouter = express.Router();
 
+contactRouter.post('/', 
+    validatorContactCreate,
+    handelContactCreate)
 
 contactRouter.get('/', handelGetContacts)
 

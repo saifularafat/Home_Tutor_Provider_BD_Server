@@ -1,6 +1,15 @@
 const createError = require('http-errors');
 const Contact = require('../models/contactModel');
 
+const createContact = async (contactData) => {
+    try {
+        const newContact = await Contact.create(contactData);
+        return newContact;
+    } catch (error) {
+        throw error;
+    }
+}
+
 const getContacts = async (page = 1, limit = 12) => {
     const contacts = await Contact.find()
         .skip((page - 1) * limit)
@@ -40,6 +49,7 @@ const deleteContactById = async (id) => {
     }
 }
 module.exports = {
+    createContact,
     getContacts,
     getSingleContact,
     deleteContactById
