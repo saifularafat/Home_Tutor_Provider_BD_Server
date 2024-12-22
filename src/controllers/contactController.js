@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const { successResponse } = require("../Helper/responseController");
 const Contact = require('../models/contactModel');
-const { getContacts, getSingleContact } = require('../services/contactService');
+const { getContacts, getSingleContact, deleteContactById } = require('../services/contactService');
 
 const handelGetContacts = async (req, res, next) => {
     try {
@@ -52,7 +52,23 @@ const handelGetSingleContact = async (req, res, next) => {
     }
 }
 
+
+const handelDeleteContact = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        await deleteContactById(id);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "Contact is deleted successfully",
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelGetContacts,
     handelGetSingleContact,
+    handelDeleteContact,
 }

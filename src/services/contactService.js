@@ -28,7 +28,19 @@ const getSingleContact = async (id) => {
     }
     return contact;
 }
+
+const deleteContactById = async (id) => {
+    try {
+        const contact = await Contact.findOneAndDelete({ _id: id });
+        if (!contact) {
+            throw createError(404, 'No contact found.')
+        }
+    } catch (error) {
+        throw error;
+    }
+}
 module.exports = {
     getContacts,
-    getSingleContact
+    getSingleContact,
+    deleteContactById
 }
