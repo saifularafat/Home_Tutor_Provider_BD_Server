@@ -18,6 +18,17 @@ const getContacts = async (page = 1, limit = 12) => {
         currentPage: page,
     }
 }
+
+const getSingleContact = async (id) => {
+    const contact = await Contact
+        .findOne({ _id: id })
+        .lean();
+    if (!contact) {
+        throw createError(404, 'contact not found')
+    }
+    return contact;
+}
 module.exports = {
     getContacts,
+    getSingleContact
 }

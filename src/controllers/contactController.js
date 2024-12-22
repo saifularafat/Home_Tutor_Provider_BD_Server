@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const { successResponse } = require("../Helper/responseController");
 const Contact = require('../models/contactModel');
-const { getContacts } = require('../services/contactService');
+const { getContacts, getSingleContact } = require('../services/contactService');
 
 const handelGetContacts = async (req, res, next) => {
     try {
@@ -36,6 +36,23 @@ const handelGetContacts = async (req, res, next) => {
         next(error)
     }
 }
+
+
+const handelGetSingleContact = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const contact = await getSingleContact(id);
+        return successResponse(res, {
+            statusCode: 200,
+            message: `Return contact is successfully.`,
+            payload: contact,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handelGetContacts,
+    handelGetSingleContact,
 }
