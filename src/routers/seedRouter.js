@@ -6,6 +6,7 @@ const {
     seedBlogs,
     seedRating,
     seedTutorJobApply,
+    seedContact,
 } = require("../controllers/seedControllers");
 
 const seedRouter = express.Router();
@@ -33,6 +34,10 @@ seedRouter.get("/blogs",
 
 seedRouter.get("/ratings",
     seedRating
+)
+
+seedRouter.get("/contact",
+seedContact
 )
 
 module.exports = seedRouter;

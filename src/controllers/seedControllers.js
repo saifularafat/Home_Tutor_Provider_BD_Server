@@ -5,6 +5,7 @@ const TutorRequest = require("../models/tutorRequestModel")
 const Blog = require("../models/blogModel")
 const Rating = require("../models/ratingModel")
 const TutorJobApply = require("../models/tutorJobApplyModel")
+const Contact = require("../models/contactModel")
 
 const seedUser = async (req, res, next) => {
     try {
@@ -69,11 +70,23 @@ const seedRating = async (req, res, next) => {
         next(error)
     }
 }
+
+const seedContact = async (req, res, next) => {
+    try {
+        await Contact.deleteMany({})
+
+        const contact = await Contact.insertMany(data.contacts)
+        return res.status(201).json(contact)
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports = {
     seedUser,
     seedTuitionJob,
     seedTutorRequest,
     seedTutorJobApply,
     seedBlogs,
-    seedRating
+    seedRating,
+    seedContact,
 }

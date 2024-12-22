@@ -15,6 +15,7 @@ const blogRouter = require("./routers/blogRouter");
 const ratingRouter = require("./routers/ratingRouter");
 const tutorRequestRouter = require("./routers/tutorRequestRouter");
 const tutorJobApplyRouter = require("./routers/tutorJobApplyRouter");
+const contactRouter = require("./routers/contactRouter");
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use("/api/tutor-request", tutorRequestRouter);
 app.use("/api/job-apply", tutorJobApplyRouter);
 app.use('/api/blog', blogRouter)
 app.use('/api/rating', ratingRouter)
+app.use('/api/contact', contactRouter)
 app.use('/api/seed', seedRouter)
 
 
