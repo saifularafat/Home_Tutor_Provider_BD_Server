@@ -7,6 +7,17 @@ const {
 
 const userStorage = multer.memoryStorage();
 
+
+// const userStorage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, UPLOAD_USER_IMG_DIRECTORY);
+//     },
+
+//     filename: function (req, file, cb) {
+//         cb(null, Date.now() + '-' + file.originalname);
+//     }
+// });
+
 const fileFilter = (req, file, cb) => {
 
     if (!file.mimetype.startsWith('image/')) {

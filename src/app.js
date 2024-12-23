@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const xssClean = require("xss-clean");
@@ -30,6 +31,16 @@ const rateLimitApi = rateLimit({
 const bodyParserOptions = {
     limit: "100kb",
 };
+
+
+/* middleware */
+const corsOptions = {
+    origin: "*",
+    credentials: true,
+    optionSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 app.use(xssClean());

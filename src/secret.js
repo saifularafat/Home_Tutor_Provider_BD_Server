@@ -16,8 +16,14 @@ const jwtResetPasswordKey = process.env.JWT_RESET_PASSWORD_KEY || "59c81f406a6bc
 const smtpUserName = process.env.SMTP_USERNAME || "";
 const smtpPassword = process.env.SMTP_PASSWORD || "";
 
+// cloudinary
+const cloudinaryName = process.env.CLOUDINARY_USER_NAME || "";
+const cloudinaryApiKey = process.env.CLOUDINARY_API_KEY || "";
+const cloudinaryApiSecret = process.env.CLOUDINARY_API_SECRET || "";
+
+UPLOAD_USER_IMG_DIRECTORY = 'public/image/users';
 // user interface in the Client site
-const clientUrl = process.env.CLIENT_URL || "";
+const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
 
 module.exports = {
     serverPort,
@@ -29,5 +35,9 @@ module.exports = {
     clientUrl,
     jsonAccessKey,
     jsonRefreshKey,
-    jwtResetPasswordKey
+    jwtResetPasswordKey,
+    UPLOAD_USER_IMG_DIRECTORY,
+    cloudinaryName,
+    cloudinaryApiKey,
+    cloudinaryApiSecret
 }

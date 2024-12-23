@@ -16,7 +16,8 @@ const { validatorContactCreate } = require("../validators/contact");
 
 const contactRouter = express.Router();
 
-contactRouter.post('/', 
+contactRouter.post('/',
+    isLoggedIn,
     validatorContactCreate,
     handelContactCreate)
 

@@ -96,7 +96,7 @@ const handelProcessRegister = async (req, res, next) => {
             throw createError(400, "Image file is required!")
         }
         // check the image size 
-        if (image.size > 1024 * 1024 * 2) {
+        if (image && image.size > 1024 * 1024 * 2) {
             throw createError(400, "Image file is too large. It must be less than 2 MB.")
         }
         const imageBufferString = image.buffer.toString('base64');
