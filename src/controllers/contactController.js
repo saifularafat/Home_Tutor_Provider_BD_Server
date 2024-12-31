@@ -34,7 +34,7 @@ const handelGetContacts = async (req, res, next) => {
     try {
         const search = req.query.search || "";
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 12;
+        const limit = parseInt(req.query.limit) || 7;
 
         const searchRegExp = new RegExp(".*" + search + ".*", "i");
         const filter = {

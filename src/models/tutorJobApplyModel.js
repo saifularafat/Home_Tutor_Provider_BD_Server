@@ -35,6 +35,10 @@ const TutorJobApplySchema = new Schema({
         type: String,
         required: [true, "Job Email is required"],
     },
+    isJobApply: {
+        type: Boolean,
+        default: false
+    },
 }, { timestamps: true })
 
 const TutorJobApply = model("TutorJobApplies", TutorJobApplySchema)

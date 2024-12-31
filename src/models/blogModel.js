@@ -63,7 +63,10 @@ const blogSchema = new Schema({
         type: String,
         required: [true, "User id is required"],
     },
-
+    isBlog: {
+        type: Boolean,
+        default: false
+    },
 }, { timestamps: true })
 
 

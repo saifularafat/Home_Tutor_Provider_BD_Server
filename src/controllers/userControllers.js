@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 const { successResponse } = require("../Helper/responseController");
-const { findUsers, findUserById, deleteUserById, updateUserById, handelUserAction, updateUserPasswordById, forgetPasswordByEmail, resetPassword, findTutors } = require("../services/userService");
+const { findUsers, findUserById, deleteUserById, updateUserById, handelUserAction, updateUserPasswordById, forgetPasswordByEmail, resetPassword, findTutors, findTutorById } = require("../services/userService");
 const User = require('../models/userModel');
 const { createJsonWebToken } = require("../Helper/jsonwebtoken");
 const { jsonActivationKey, clientUrl } = require('../secret');
@@ -46,6 +46,30 @@ const handelGetTutor = async (req, res, next) => {
                 tutors: tutors,
                 pagination: pagination,
             },
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+// ~ get single users by id
+const handelGetTutorById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const option = { password: 0 };
+
+        const user = await findTutorById(id, option);
+        if (!user.isTutor) {
+            return res.status(403).json({
+                statusCode: 403,
+                message: "Access denied. Tutor Id dose't exist, please try again.",
+            });
+        }
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: "Tutor information retrieved successfully",
+            payload: { user },
         })
     } catch (error) {
         next(error)
@@ -285,4 +309,5 @@ module.exports = {
     handelForgetPassword,
     handelResetPassword,
     handelGetTutor,
+    handelGetTutorById,
 }

@@ -49,6 +49,10 @@ const TutorRequestSchema = new Schema({
         type: String,
         required: [true, "Tutor ID is required"],
     },
+    isTutorRequest: {
+        type: Boolean,
+        default: false
+    },
 }, { timestamps: true })
 
 const TutorRequest = model("TutorRequests", TutorRequestSchema)

@@ -92,8 +92,8 @@ const handelGetBlogs = async (req, res, next) => {
 
 const handelGetSingleBlog = async (req, res, next) => {
     try {
-        const { slug } = req.params;
-        const blog = await getSingleBlog(slug);
+        const id = req.params.id;
+        const blog = await getSingleBlog(id);
         return successResponse(res, {
             statusCode: 201,
             message: `Return Blog successfully.`,

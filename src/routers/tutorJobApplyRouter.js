@@ -23,11 +23,11 @@ tutorJobApplyRouter.post('/',
     handelTutorJobApplyCreate)
 
 tutorJobApplyRouter.get('/',
-    isLoggedIn,
+    // isLoggedIn,
     handelGetTutorJobApply)
 
 tutorJobApplyRouter.get("/:id([0-9a-fA-F]{24})",
-    isLoggedIn,
+    // isLoggedIn,
     handelGetSingleTutorJobApply)
 
 tutorJobApplyRouter.put("/:id([0-9a-fA-F]{24})",

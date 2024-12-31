@@ -78,9 +78,9 @@ const getBlogs = async (page = 1, limit = 5, filter = {}) => {
     }
 }
 
-const getSingleBlog = async (slug) => {
+const getSingleBlog = async (id) => {
     try {
-        const blog = await Blog.findOne({ slug }).lean()
+        const blog = await Blog.findOne({ _id: id }).lean()
         if (!blog) throw createError(404, 'This Blog not found.')
         return blog
     } catch (error) {

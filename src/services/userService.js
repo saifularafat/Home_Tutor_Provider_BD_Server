@@ -58,17 +58,13 @@ const findTutors = async (search, limit, page) => {
                 { phone: { $regex: searchRegExp } },
             ],
         };
-        // don't show all users password
         const options = { password: 0 }
         const tutors = await User
             .find(filter, options)
             .limit(limit)
             .skip((page - 1) * limit);
 
-        // Total page get in an all tutors 
         const count = await User.find(filter).countDocuments();
-
-        // search don't mach this search Value than error throw
         if (!tutors || tutors.length === 0) throw createError(404, "Tutor not found !");
 
         return {
@@ -80,6 +76,18 @@ const findTutors = async (search, limit, page) => {
                 nextPage: page + 1 <= Math.ceil(count / limit) ? page + 1 : null,
             },
         };
+    } catch (error) {
+        throw error;
+    }
+}
+
+// single tutor by id
+const findTutorById = async (id, options = {}) => {
+    try {
+        const user = await User.findById(id, options);
+
+        if (!user) throw createError(404, "user not found");
+        return user;
     } catch (error) {
         throw error;
     }
@@ -308,4 +316,5 @@ module.exports = {
     forgetPasswordByEmail,
     resetPassword,
     findTutors,
+    findTutorById,
 }

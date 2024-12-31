@@ -11,6 +11,7 @@ const {
     handelForgetPassword,
     handelResetPassword,
     handelGetTutor,
+    handelGetTutorById,
 } = require("../controllers/userControllers");
 
 const { userImageUpload } = require("../middlewares/uploadFile");
@@ -38,12 +39,15 @@ userRouter.post("/process-register",
 userRouter.post("/activate", handelActivateUsersAccount);
 
 userRouter.get('/',
-    isLoggedIn,
-    isAdmin,
+    // isLoggedIn,
+    // isAdmin,
     handelGetUsers);
     
 userRouter.get('/all-tutor',
     handelGetTutor);
+    
+userRouter.get('/all-tutor/:id([0-9a-fA-F]{24})',
+    handelGetTutorById);
 
 userRouter.get('/:id([0-9a-fA-F]{24})',
     isLoggedIn,

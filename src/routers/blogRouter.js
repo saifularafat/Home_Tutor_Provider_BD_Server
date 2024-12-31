@@ -26,7 +26,7 @@ blogRouter.post('/',
 
 blogRouter.get('/', handelGetBlogs)
 
-blogRouter.get('/:slug',
+blogRouter.get('/:id([0-9a-fA-F]{24})',
     handelGetSingleBlog)
 
 blogRouter.put('/:id([0-9a-fA-F]{24})',

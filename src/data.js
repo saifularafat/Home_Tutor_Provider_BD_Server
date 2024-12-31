@@ -95,7 +95,7 @@ const data = {
             studentSchool: "Sylhet Grammar School",
             fixedTime: "4:00 PM to 5:00 PM",
             description: "English tutor required for improving language skills."
-        }
+        },
     ],
      tutorJobApply: [
         {
@@ -167,6 +167,7 @@ const data = {
     blogs: [
         {
             blogCode: "",
+            userId: "12450321664",
             title: "Understanding JavaScript Fundamentals",
             slug: "understanding-javascript-fundamentals",
             image: 'default.png',
@@ -182,6 +183,7 @@ const data = {
         },
         {
             blogCode: "",
+            userId: "12450321669",
             title: "Introduction to Web Design",
             slug: "introduction-to-web-design",
             image: 'default.png',
@@ -197,6 +199,7 @@ const data = {
         },
         {
             blogCode: "",
+            userId: "12450321668",
             title: "Effective Study Strategies for Students",
             slug: "effective-study-strategies",
             image: 'default.png',
@@ -209,7 +212,7 @@ const data = {
             authorEducationLevel: "Master's in Education",
             authorStudySubject: "Education",
             authorProfession: "Educator",
-        },
+        }
     ],
     ratings: [
         {

@@ -72,6 +72,9 @@ const handelGetsTuitionJob = async (req, res, next) => {
             $or: [
                 { tuitionCode: { $regex: searchRegExp } },
                 { jobLocation: { $regex: searchRegExp } },
+                { jobCategory: { $regex: searchRegExp } },
+                { medium: { $regex: searchRegExp } },
+                { className: { $regex: searchRegExp } },
             ]
         }
         const tuitionJobData = await getTuitionJobs(page, limit, filter)
