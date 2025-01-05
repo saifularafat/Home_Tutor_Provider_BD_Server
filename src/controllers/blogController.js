@@ -1,10 +1,11 @@
 const createError = require('http-errors');
 const { successResponse } = require("../Helper/responseController");
-const { getBlogs, getSingleBlog, updateBlogById, deleteBlogById, createBlog } = require('../services/blogService');
+const { getBlogs, getSingleBlog, updateBlogById, deleteBlogById, createBlog, handelBlogAction } = require('../services/blogService');
 
 const handelCreateBlog = async (req, res, next) => {
     try {
         const {
+            image,
             title,
             medium,
             category,
@@ -18,19 +19,18 @@ const handelCreateBlog = async (req, res, next) => {
             userId,
         } = req.body;
 
-        const image = req.file;
-        if (!image) {
-            throw createError(400, "Image file is required!")
-        }
+        // if (!image) {
+        //     throw createError(400, "Image file is required!")
+        // }
         // check the image size 
-        if (image.size > 1024 * 1024 * 2) {
-            throw createError(400, "Image file is too large. It must be less than 2 MB.")
-        }
-        const imageBufferString = image.buffer.toString('base64');
+        // if (image.size > 1024 * 1024 * 2) {
+        //     throw createError(400, "Image file is too large. It must be less than 2 MB.")
+        // }
+        // const imageBufferString = image.buffer.toString('base64');
 
         const blogData = {
             title,
-            image: imageBufferString,
+            image,
             medium,
             category,
             subject,
@@ -121,6 +121,24 @@ const handelUpdateBlog = async (req, res, next) => {
     }
 }
 
+// * blog approve and pending by ID wait admin
+const handelManageBlogApproveAndPendingById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const action = req.body.action;
+
+        await handelBlogAction(id, action);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: `blog were ${action} successfully`,
+            payload: {},
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 const handelDeleteBlog = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -140,5 +158,6 @@ module.exports = {
     handelGetBlogs,
     handelGetSingleBlog,
     handelUpdateBlog,
+    handelManageBlogApproveAndPendingById,
     handelDeleteBlog,
 }

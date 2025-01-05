@@ -11,6 +11,7 @@ const {
     handelUpdateBlog,
     handelDeleteBlog,
     handelCreateBlog,
+    handelManageBlogApproveAndPendingById,
 } = require("../controllers/blogController");
 const { userImageUpload } = require("../middlewares/uploadFile");
 const { validatorBlog } = require("../validators/blog");
@@ -18,10 +19,9 @@ const { validatorBlog } = require("../validators/blog");
 const blogRouter = express.Router();
 
 blogRouter.post('/',
-    userImageUpload.single("image"),
     validatorBlog,
     runValidation,
-    isLoggedIn,
+    // isLoggedIn,
     handelCreateBlog)
 
 blogRouter.get('/', handelGetBlogs)
@@ -30,9 +30,14 @@ blogRouter.get('/:id([0-9a-fA-F]{24})',
     handelGetSingleBlog)
 
 blogRouter.put('/:id([0-9a-fA-F]{24})',
-    userImageUpload.single("image"),
     isLoggedIn,
     handelUpdateBlog)
+
+blogRouter.put("/manage-blog/:id([0-9a-fA-F]{24})",
+    // isLoggedIn,
+    // isAdmin,
+    handelManageBlogApproveAndPendingById
+);
 
 blogRouter.delete('/:id([0-9a-fA-F]{24})',
     isLoggedIn,

@@ -55,7 +55,7 @@ const handelGetContacts = async (req, res, next) => {
                     currentPage: contactData.currentPage,
                     previousPage: page - 1,
                     nextPage: page + 1,
-                    totalNumberOfTuition: contactData.count
+                    totalNumberOfContact: contactData.count
                 }
             },
         })

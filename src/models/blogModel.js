@@ -19,8 +19,7 @@ const blogSchema = new Schema({
         unique: true,
     },
     image: {
-        type: Buffer,
-        contentType: String,
+        type: String, 
         required: [true, "Blog image is required"],
     },
     medium: {

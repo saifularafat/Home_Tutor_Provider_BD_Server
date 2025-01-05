@@ -1,7 +1,7 @@
 const { body } = require("express-validator");
 const { model } = require("mongoose");
 
-// registration validator 
+// blog validator 
 const validatorBlog = [
     body('title')
         .trim()
@@ -10,12 +10,8 @@ const validatorBlog = [
         .isLength({ min: 7 })
         .withMessage("Blog title should be at least 8 characters long!"),
     body('image')
-        .custom((value, { req }) => {
-            if (!req.file || !req.file.buffer) {
-                throw new Error("Blog image is required!")
-            }
-            return true;
-        })
+        .trim()
+        .notEmpty()
         .withMessage("Blog image is required"),
     body('medium')
         .trim()

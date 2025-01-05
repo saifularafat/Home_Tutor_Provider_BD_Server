@@ -20,7 +20,7 @@ const createBlog = async (blogData) => {
             userId,
         } = blogData;
 
-         if (!authorName || typeof authorName !== 'string' || authorName.trim().length === 0) {
+        if (!authorName || typeof authorName !== 'string' || authorName.trim().length === 0) {
             throw new Error("Author name is required and must be a non-empty string.");
         }
         // Generate initials
@@ -30,7 +30,7 @@ const createBlog = async (blogData) => {
             .map(word => word.charAt(0).toUpperCase())
             .join("");
 
-        const existingBlogsCount = await Blog.countDocuments(); 
+        const existingBlogsCount = await Blog.countDocuments();
         const uniqueNumber = String(existingBlogsCount + 1).padStart(4, "0");
 
         blogData.blogCode = `${initials}-${uniqueNumber}`;
@@ -75,6 +75,7 @@ const getBlogs = async (page = 1, limit = 5, filter = {}) => {
         count,
         totalPage: Math.ceil(count / limit),
         currentPage: page,
+        totalNumberOfTutor: count
     }
 }
 
@@ -94,6 +95,7 @@ const updateBlogById = async (id, req) => {
         let updates = {}
         const allowedFields = [
             'title',
+            'image',
             'medium',
             'category',
             'subject',
@@ -111,13 +113,6 @@ const updateBlogById = async (id, req) => {
                 updates[key] = req.body[key];
             }
         }
-        const image = req.file;
-        if (image) {
-            if (image.size > 1024 * 1024 * 2) {
-                throw createError(400, "Image file is too large. It must be less than 2 MB.")
-            }
-            updates.image = image.buffer.toString('base64')
-        }
 
         const updatedBlog = await Blog.findByIdAndUpdate(
             id,
@@ -128,6 +123,29 @@ const updateBlogById = async (id, req) => {
             throw createError(404, "Blog with this ID don's not exist.")
         }
         return updatedBlog;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const handelBlogAction = async (id, action) => {
+    try {
+        let update;
+
+        if (action === 'approve') {
+            update = { isBlog: true };
+        } else if (action === 'pending') {
+            update = { isBanned: false };
+        } else {
+            throw createError(400, 'Invalid action, Please select Approve and Pending option.!')
+        }
+        const updateOption = { new: true, runValidators: true, context: 'query' };
+        const updateBlog = await Blog.findByIdAndUpdate(id, update, updateOption);
+        if (!updateBlog) {
+            throw createError(
+                400,
+                `user was not ${action} successfully, Please try again`)
+        }
     } catch (error) {
         throw error;
     }
@@ -147,5 +165,6 @@ module.exports = {
     getBlogs,
     getSingleBlog,
     updateBlogById,
+    handelBlogAction,
     deleteBlogById,
 }

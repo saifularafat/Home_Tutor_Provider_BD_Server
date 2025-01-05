@@ -76,6 +76,7 @@ const findTutors = async (search, limit, page) => {
                 currentPage: page,
                 previousPage: page - 1 > 0 ? page - 1 : null,
                 nextPage: page + 1 <= Math.ceil(count / limit) ? page + 1 : null,
+                totalNumberOfTutor: count
             },
         };
     } catch (error) {
