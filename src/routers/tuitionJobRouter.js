@@ -20,7 +20,7 @@ const tuitionJobRouter = express.Router();
 tuitionJobRouter.post("/",
     validatorTuitionJobCreate,
     runValidation,
-    isLoggedIn,
+    // isLoggedIn,
     handelTuitionJobCreate
 );
 //  ~ All tuition Jobs

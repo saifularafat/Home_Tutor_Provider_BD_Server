@@ -17,7 +17,7 @@ const { validatorTutorJobApplyCreate } = require("../validators/jobApply");
 const tutorJobApplyRouter = express.Router();
 
 tutorJobApplyRouter.post('/',
-    isLoggedIn,
+    // isLoggedIn,
     runValidation,
     validatorTutorJobApplyCreate,
     handelTutorJobApplyCreate)

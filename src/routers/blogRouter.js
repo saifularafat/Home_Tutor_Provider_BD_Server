@@ -30,7 +30,7 @@ blogRouter.get('/:id([0-9a-fA-F]{24})',
     handelGetSingleBlog)
 
 blogRouter.put('/:id([0-9a-fA-F]{24})',
-    isLoggedIn,
+    // isLoggedIn,
     handelUpdateBlog)
 
 blogRouter.put("/manage-blog/:id([0-9a-fA-F]{24})",
@@ -40,7 +40,7 @@ blogRouter.put("/manage-blog/:id([0-9a-fA-F]{24})",
 );
 
 blogRouter.delete('/:id([0-9a-fA-F]{24})',
-    isLoggedIn,
+    // isLoggedIn,
     handelDeleteBlog)
 
 module.exports = blogRouter;

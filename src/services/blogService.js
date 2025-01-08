@@ -99,7 +99,7 @@ const updateBlogById = async (id, req) => {
             'medium',
             'category',
             'subject',
-            'studentHelp',
+            'studentHelp', 
             'description',
             'authorEducationLevel',
             'authorStudySubject',
