@@ -26,7 +26,7 @@ const handelTuitionJobCreate = async (req, res, next) => {
             studentGender,
             studentSchool,
             fixedTime,
-            description,
+            tuitionDistrictName,
             userId,
         } = req.body;
 
@@ -46,7 +46,7 @@ const handelTuitionJobCreate = async (req, res, next) => {
             studentGender,
             studentSchool,
             fixedTime,
-            description,
+            tuitionDistrictName,
             userId,
         }
         const newTuitionJob = await createTuitionJob(tuitionJobData);

@@ -43,7 +43,7 @@ tuitionJobRouter.put("/:id([0-9a-fA-F]{24})",
 
 //  * Delete Category
 tuitionJobRouter.delete("/:id([0-9a-fA-F]{24})",
-    isLoggedIn,
+    // isLoggedIn,
     // isAdmin,
     handelDeleteTuitionJob
 );

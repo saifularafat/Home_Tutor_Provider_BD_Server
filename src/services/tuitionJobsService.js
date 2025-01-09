@@ -20,7 +20,7 @@ const createTuitionJob = async (tuitionJob) => {
             studentGender,
             studentSchool,
             fixedTime,
-            description,
+            tuitionDistrictName,
             userId,
         } = tuitionJob;
 
@@ -52,7 +52,7 @@ const createTuitionJob = async (tuitionJob) => {
             studentGender,
             studentSchool,
             fixedTime,
-            description,
+            tuitionDistrictName,
             userId,
         });
 

@@ -83,7 +83,11 @@ const tuitionJobSchema = new Schema({
         type: String,
         required: [true, "tuition Fixed Time is required"],
     },
-    description: {
+    tuitionDistrictName: {
+        type: String,
+        required: [true, "tuition district name is required"],
+    },
+    userId: {
         type: String,
     },
 

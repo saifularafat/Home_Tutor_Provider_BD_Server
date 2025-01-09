@@ -135,7 +135,7 @@ const handelBlogAction = async (id, action) => {
         if (action === 'approve') {
             update = { isBlog: true };
         } else if (action === 'pending') {
-            update = { isBanned: false };
+            update = { isBlog: false };
         } else {
             throw createError(400, 'Invalid action, Please select Approve and Pending option.!')
         }
