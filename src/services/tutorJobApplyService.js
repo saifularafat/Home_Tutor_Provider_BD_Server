@@ -59,6 +59,28 @@ const updateTutorJobApplyById = async (id, updates, updateOptions) => {
     }
 }
 
+const handelJobApplyAction = async (id, action) => {
+    try {
+        let update;
+
+        if (action === 'approve') {
+            update = { isJobApply: true };
+        } else if (action === 'pending') {
+            update = { isJobApply: false };
+        } else {
+            throw createError(400, 'Invalid action, Please select Approve and Pending option.!')
+        }
+        const updateOption = { new: true, runValidators: true, context: 'query' };
+        const updateJobApply = await TutorJobApply.findByIdAndUpdate(id, update, updateOption);
+        if (!updateJobApply) {
+            throw createError(
+                400,
+                `user was not ${action} successfully, Please try again`)
+        }
+    } catch (error) {
+        throw error;
+    }
+}
 
 const deleteTutorJobApplyById = async (id) => {
     try {
@@ -76,5 +98,6 @@ module.exports = {
     getTutorJobApply,
     getSingleTutorJobApply,
     updateTutorJobApplyById,
+    handelJobApplyAction,
     deleteTutorJobApplyById
 }

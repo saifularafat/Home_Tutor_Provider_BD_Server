@@ -11,6 +11,7 @@ const {
     handelUpdateTutorJobApply,
     handelDeleteTutorJobApply,
     handelTutorJobApplyCreate,
+    handelManageJobApplyApproveAndPendingById,
 } = require("../controllers/tutorJobApplyController");
 const { validatorTutorJobApplyCreate } = require("../validators/jobApply");
 
@@ -31,11 +32,17 @@ tutorJobApplyRouter.get("/:id([0-9a-fA-F]{24})",
     handelGetSingleTutorJobApply)
 
 tutorJobApplyRouter.put("/:id([0-9a-fA-F]{24})",
-    isLoggedIn,
+    // isLoggedIn,
     handelUpdateTutorJobApply)
 
+tutorJobApplyRouter.put("/manage-job-apply/:id([0-9a-fA-F]{24})",
+    // isLoggedIn,
+    // isAdmin,
+    handelManageJobApplyApproveAndPendingById
+);
+
 tutorJobApplyRouter.delete("/:id([0-9a-fA-F]{24})",
-    isLoggedIn,
+    // isLoggedIn,
     handelDeleteTutorJobApply)
 
 

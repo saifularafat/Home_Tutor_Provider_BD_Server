@@ -4,7 +4,8 @@ const {
     getSingleTutorJobApply,
     updateTutorJobApplyById,
     deleteTutorJobApplyById,
-    createTutorJobApply
+    createTutorJobApply,
+    handelJobApplyAction
 } = require("../services/tutorJobApplyService");
 
 
@@ -143,6 +144,24 @@ const handelUpdateTutorJobApply = async (req, res, next) => {
     }
 }
 
+// * tuition job apply approve and pending by ID wait admin
+const handelManageJobApplyApproveAndPendingById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const action = req.body.action;
+
+        await handelJobApplyAction(id, action);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: `job apply were ${action} successfully`,
+            payload: {},
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 const handelDeleteTutorJobApply = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -163,5 +182,6 @@ module.exports = {
     handelGetTutorJobApply,
     handelGetSingleTutorJobApply,
     handelUpdateTutorJobApply,
+    handelManageJobApplyApproveAndPendingById,
     handelDeleteTutorJobApply
 }
