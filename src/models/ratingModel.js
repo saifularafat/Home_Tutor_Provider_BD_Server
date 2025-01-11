@@ -1,11 +1,11 @@
 const { Schema, model } = require("mongoose");
 
 const ratingSchema = new Schema({
-    guardianId: {
+    userId: {
         type: String,
         required: [true, "User ID is required"],
     },
-    guardianEmail: {
+    userEmail: {
         type: String,
         required: [true, "User Name is required"],
     },

@@ -14,14 +14,14 @@ const {
 const ratingRouter = express.Router();
 
 ratingRouter.post('/',
-    isLoggedIn,
+    // isLoggedIn,
     runValidation,
     handelCreateRating)
 
 ratingRouter.get('/', handelGetRating)
 
 ratingRouter.delete('/:id([0-9a-fA-F]{24})',
-    isLoggedIn,
+    // isLoggedIn,
     isAdmin,
     handelDeleteRating)
 

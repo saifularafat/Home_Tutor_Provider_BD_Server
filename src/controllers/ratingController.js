@@ -45,7 +45,7 @@ const handelGetRating = async (req, res, next) => {
                     currentPage: ratingData.currentPage,
                     previousPage: page - 1,
                     nextPage: page + 1,
-                    totalNumberOfBlog: ratingData.count
+                    totalNumberOfRating: ratingData.count
                 }
             },
         })

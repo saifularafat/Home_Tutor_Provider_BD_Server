@@ -269,20 +269,20 @@ const data = {
     ],
     ratings: [
         {
-            guardianId: "1001",
-            guardianEmail: "john.doe@example.com",
+            userId: "1001",
+            userEmail: "john.doe@example.com",
             rating: 5,
             review: "Excellent service and very friendly.",
         },
         {
-            guardianId: "1002",
-            guardianEmail: "jane.smith@example.com",
+            userId: "1002",
+            userEmail: "jane.smith@example.com",
             rating: 4,
             review: "Very helpful but could improve response time.",
         },
         {
-            guardianId: "1003",
-            guardianEmail: "alice.johnson@example.com",
+            userId: "1003",
+            userEmail: "alice.johnson@example.com",
             rating: 5,
             review: "Fantastic experience, highly recommend!",
         },
