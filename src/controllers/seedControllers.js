@@ -32,7 +32,7 @@ const seedTuitionJob = async (req, res, next) => {
 const seedTutorRequest = async (req, res, next) => {
     await TutorRequest.deleteMany({})
     try {
-        const tutorRequest = await TutorRequest.insertMany(data.tutorRequests)
+        const tutorRequest = await TutorRequest.insertMany(data.hireTutorRequest)
         return res.status(201).json(tutorRequest);
     } catch (error) {
         next(error)

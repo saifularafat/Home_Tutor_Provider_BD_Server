@@ -13,7 +13,7 @@ const createRating = async (ratingData) => {
     }
 }
 
-const getRating = async (page = 1, limit = 8) => {
+const getRating = async (page = 1, limit = 12) => {
     const rating = await Rating.find()
         .skip((page - 1) * limit)
         .limit(limit)

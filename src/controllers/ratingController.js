@@ -4,15 +4,13 @@ const { getRating, createRating, deleteRatingById } = require('../services/ratin
 const handelCreateRating = async (req, res, next) => {
     try {
         const {
-            guardianId,
-            guardianEmail,
+            userEmail,
             rating,
             review
         } = req.body;
 
         const ratingData = {
-            guardianId,
-            guardianEmail,
+            userEmail,
             rating,
             review
         }
@@ -31,7 +29,7 @@ const handelCreateRating = async (req, res, next) => {
 const handelGetRating = async (req, res, next) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 5;
+        const limit = parseInt(req.query.limit) || 12;
 
         const ratingData = await getRating(page, limit)
 

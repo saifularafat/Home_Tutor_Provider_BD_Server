@@ -9,17 +9,9 @@ const TutorRequestSchema = new Schema({
         type: String,
         required: [true, "Guardian Email is required"],
     },
-    category: {
+    guardianName: {
         type: String,
-        required: [true, "Tuition Category is required"],
-    },
-    location: {
-        type: String,
-        required: [true, "Guardian location is required"],
-    },
-    subLocation: {
-        type: String,
-        required: [true, "Guardian location is required"],
+        required: [true, "Guardian Name is required"],
     },
     guardianPhone: {
         type: String,
@@ -36,6 +28,22 @@ const TutorRequestSchema = new Schema({
         required: [true, "Guardian Address is required"],
         minlength: [5, "The length of user Address can be minimum 5 character"],
     },
+    JobCategory: {
+        type: String,
+        required: [true, "Tuition Job Category is required"],
+    },
+    JobSubject: {
+        type: String,
+        required: [true, "Tuition Job Category is required"],
+    },
+    tuitionSalary: {
+        type: Number,
+        required: [true, "Tuition salary is required"],
+    },
+    tuitionStartMonth: {
+        type: String,
+        required: [true, "Tuition Start Month is required"],
+    },
     comments: {
         type: String,
         required: [true, "Guardian Comment is required"],
@@ -44,6 +52,18 @@ const TutorRequestSchema = new Schema({
     tutorEmail: {
         type: String,
         required: [true, "Tutor Email is required"],
+    },
+    tutorName: {
+        type: String,
+        required: [true, "Tutor Name is required"],
+    },
+    tutorAddress: {
+        type: String,
+        required: [true, "Tutor Address is required"],
+    },
+    tutorPhone: {
+        type: String,
+        required: [true, "Tutor Phone is required"],
     },
     tutorId: {
         type: String,
