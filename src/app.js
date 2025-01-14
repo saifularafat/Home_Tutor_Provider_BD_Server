@@ -53,7 +53,7 @@ app.use(rateLimitApi); // all api router is work now hit this router secret
 app.use('/api/users', userRouter)
 app.use("/api/auth", authRouter);
 app.use("/api/tuition-job", tuitionJobRouter);
-app.use("/api/tutor-request", tutorRequestRouter);
+app.use("/api/tutor-hire-request", tutorRequestRouter);
 app.use("/api/job-apply", tutorJobApplyRouter);
 app.use('/api/blog', blogRouter)
 app.use('/api/rating', ratingRouter)

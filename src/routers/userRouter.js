@@ -54,7 +54,7 @@ userRouter.get('/:id([0-9a-fA-F]{24})',
     handelGetUserById);
 
 userRouter.delete('/:id([0-9a-fA-F]{24})',
-    isLoggedIn,
+    // isLoggedIn,
     handelDeleteUserById);
 
 // reset Password by email with Database
@@ -71,8 +71,8 @@ userRouter.put("/:id([0-9a-fA-F]{24})",
     handelUpdateUserByID
 );
 userRouter.put("/manage-user/:id([0-9a-fA-F]{24})",
-    isLoggedIn,
-    isAdmin,
+    // isLoggedIn,
+    // isAdmin,
     handelManageUserBanAndUnBanById
 );
 

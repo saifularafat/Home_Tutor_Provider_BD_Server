@@ -1,5 +1,5 @@
 const { successResponse } = require("../Helper/responseController");
-const { getTutorRequest, deleteTutorRequestById, updateTutorRequestById, createTutorRequest, getSingleTutorRequest } = require("../services/tutorRequestService");
+const { getTutorRequest, deleteTutorRequestById, updateTutorRequestById, createTutorRequest, getSingleTutorRequest, handelTutorHireAction } = require("../services/tutorRequestService");
 
 
 const handelTutorRequestCreate = async (req, res, next) => {
@@ -125,6 +125,24 @@ const handelUpdateTutorRequest = async (req, res, next) => {
     }
 }
 
+// * tutor hire with parent apply approve and pending by ID wait admin
+const handelManageTutorHireApproveAndPendingById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const action = req.body.action;
+
+        await handelTutorHireAction(id, action);
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: `Tutor hire were ${action} successfully`,
+            payload: {},
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 const handelDeleteTutorRequest = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -145,5 +163,6 @@ module.exports = {
     handelGetTutorRequest,
     handelGetSingleTutorRequest,
     handelUpdateTutorRequest,
+    handelManageTutorHireApproveAndPendingById,
     handelDeleteTutorRequest,
 }

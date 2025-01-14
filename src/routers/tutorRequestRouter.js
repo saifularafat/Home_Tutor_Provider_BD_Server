@@ -11,6 +11,7 @@ const {
     handelDeleteTutorRequest,
     handelTutorRequestCreate,
     handelGetSingleTutorRequest,
+    handelManageTutorHireApproveAndPendingById,
 } = require("../controllers/tutorRequestController");
 const { validatorTutorRequestCreate } = require("../validators/tutorRequest");
 
@@ -30,6 +31,11 @@ tutorRequestRouter.get("/:id([0-9a-fA-F]{24})",
 tutorRequestRouter.put("/:id([0-9a-fA-F]{24})",
     handelUpdateTutorRequest)
 
+tutorRequestRouter.put("/manage-tutor-hire/:id([0-9a-fA-F]{24})",
+    // isLoggedIn,
+    // isAdmin,
+    handelManageTutorHireApproveAndPendingById
+);
 tutorRequestRouter.delete("/:id([0-9a-fA-F]{24})",
     handelDeleteTutorRequest)
 

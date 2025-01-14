@@ -39,6 +39,7 @@ const handelGetContacts = async (req, res, next) => {
         const searchRegExp = new RegExp(".*" + search + ".*", "i");
         const filter = {
             $or: [
+                { userId: { $regex: searchRegExp } },
                 { contactEmail: { $regex: searchRegExp } },
                 { contactName: { $regex: searchRegExp } },
             ]

@@ -20,7 +20,7 @@ seedRouter.get("/tuition-job",
     seedTuitionJob
 )
 
-seedRouter.get("/tutor-request",
+seedRouter.get("/tutor-hire-request",
     seedTutorRequest
 )
 

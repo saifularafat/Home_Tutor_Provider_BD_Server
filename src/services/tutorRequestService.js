@@ -60,6 +60,29 @@ const updateTutorRequestById = async (id, updates, updateOptions) => {
     }
 }
 
+const handelTutorHireAction = async (id, action) => {
+    try {
+        let update;
+
+        if (action === 'approve') {
+            update = { isTutorRequest: true };
+        } else if (action === 'pending') {
+            update = { isTutorRequest: false };
+        } else {
+            throw createError(400, 'Invalid action, Please select Approve and Pending option.!')
+        }
+        const updateOption = { new: true, runValidators: true, context: 'query' };
+        const updateJobApply = await TutorRequest.findByIdAndUpdate(id, update, updateOption);
+        if (!updateJobApply) {
+            throw createError(
+                400,
+                `user was not ${action} successfully, Please try again`)
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
 const deleteTutorRequestById = async (id) => {
     try {
         const tutorRequest = await TutorRequest.findOneAndDelete({ _id: id });
@@ -75,5 +98,6 @@ module.exports = {
     getTutorRequest,
     getSingleTutorRequest,
     updateTutorRequestById,
+    handelTutorHireAction,
     deleteTutorRequestById
 }
