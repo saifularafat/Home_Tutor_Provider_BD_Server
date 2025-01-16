@@ -36,13 +36,9 @@ const validatorUserRegistration = [
         .notEmpty()
         .withMessage("Gender is required"),
     body('image')
-        .custom((value, { req }) => {
-            if (!req.file || !req.file.buffer) {
-                throw new Error("User image is required!")
-            }
-            return true;
-        })
-        .withMessage("User image is required"),
+        .trim()
+        .notEmpty()
+        .withMessage("Image is required"),
 ]
 
 // login validator 

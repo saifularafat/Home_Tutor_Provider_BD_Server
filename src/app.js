@@ -6,7 +6,7 @@ const createError = require("http-errors");
 const xssClean = require("xss-clean");
 const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
-const { serverPort } = require("./secret");
+const { serverPort, clientUrl } = require("./secret");
 const { errorResponse } = require("./Helper/responseController");
 const userRouter = require("./routers/userRouter");
 const seedRouter = require("./routers/seedRouter");
@@ -34,10 +34,30 @@ const bodyParserOptions = {
 
 
 /* middleware */
+// const corsOptions = {
+    //     origin: "http://localhost:5173",  // Your frontend URL
+//     credentials: true,
+//     optionSuccessStatus: 200
+// };
+
+// app.use(cors(corsOptions));
+
+
+/* middleware */
+const allowedOrigins = [clientUrl, "http://hometutorproviderbd.com"];  // Add other domains as needed
+
 const corsOptions = {
-    origin: "*",
-    credentials: true,
-    optionSuccessStatus: 200
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    allowedHeaders: ['Content-Type', 'Authorization'],  
+    credentials: true, 
+    optionSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));

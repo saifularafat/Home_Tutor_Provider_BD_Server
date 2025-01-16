@@ -31,11 +31,11 @@ const {
 const userRouter = express.Router();
 
 userRouter.post("/process-register",
-    userImageUpload.single("image"),
     isLoggedOut,
     validatorUserRegistration,
     runValidation,
     handelProcessRegister);
+    
 userRouter.post("/activate", handelActivateUsersAccount);
 
 userRouter.get('/',
@@ -66,7 +66,7 @@ userRouter.put("/reset-password",
 );
 
 userRouter.put("/:id([0-9a-fA-F]{24})",
-    userImageUpload.single("image"),
+    // userImageUpload.single("image"),
     isLoggedIn,
     handelUpdateUserByID
 );

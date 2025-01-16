@@ -114,17 +114,22 @@ const handelDeleteUserById = async (req, res, next) => {
 // ? new user create
 const handelProcessRegister = async (req, res, next) => {
     try {
-        const { name, email, password, phone, address, gender } = req.body;
-        const image = req.file;
-        if (!image) {
-            throw createError(400, "Image file is required!")
-        }
-        // check the image size 
-        if (image && image.size > 1024 * 1024 * 2) {
-            throw createError(400, "Image file is too large. It must be less than 2 MB.")
-        }
-        const imageBufferString = image.buffer.toString('base64');
+        const {
+            name,
+            email,
+            password,
+            phone,
+            address,
+            gender,
+            image,
+            isAdmin = false,
+            isParent = false,
+            isTutor = false,
+            isCoaching = false,
+        } = req.body;
+        
         const userExist = await checkUserExists(email);
+
         if (userExist) {
             throw createError(409, 'User with this email already exist. Please lon in ')
         }
@@ -135,7 +140,7 @@ const handelProcessRegister = async (req, res, next) => {
             ? String(parseInt(latestUser.userId.split('-')[1]) + 1).padStart(5, '00100')
             : '00001';
         const userId = `HTPBD-${uniqueNumber}`;
-        
+
         const user = {
             userId,
             name,
@@ -144,7 +149,11 @@ const handelProcessRegister = async (req, res, next) => {
             phone,
             address,
             gender,
-            image: imageBufferString,
+            image,
+            isAdmin,
+            isParent,
+            isTutor,
+            isCoaching,
         }
         // create token
         const token = createJsonWebToken(
@@ -160,6 +169,7 @@ const handelProcessRegister = async (req, res, next) => {
             <p>Please Click Here to <a href="${clientUrl}/api/users/activate/${token}"
                 target="_blank" style='color: green'> Active Your Account</a>
              </p>
+             <p style='text-size: 16px, color: red'>${token}</p>
             `
         }
         // send email with nodemailer
@@ -186,7 +196,7 @@ const handelActivateUsersAccount = async (req, res, next) => {
             if (!decoded) throw createError(401, 'unable to verify user!')
             const userExists = await checkUserExists(decoded?.email);
             if (userExists) {
-                throw createError(409, "user email already exists. Please Sign in!")
+                throw createError(409, "user email already exists. Please Login!")
             }
             await User.create(decoded);
 
@@ -203,7 +213,6 @@ const handelActivateUsersAccount = async (req, res, next) => {
                 throw error
             }
         }
-
     } catch (error) {
         next(error)
     }

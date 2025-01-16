@@ -54,16 +54,24 @@ const userSchema = new Schema({
     gender: {
         type: String,
         required: [true, "Gender is required"],
-        message: "Gender must be Male, Female, or Other"
+        enum: {
+            values: ["Male", "Female", "Other"],
+            message: "Gender must be 'Male', 'Female', or 'Other'",
+        },
     },
     image: {
-        type: Buffer,
-        contentType: String,
-        required: [true, "User Image is required"],
+        type: String,
+        required: [true, "User image is required"],
+        validate: {
+            validator: function (v) {
+                return /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg|webp))$/i.test(v);
+            },
+            message: "Please enter a valid image URL",
+        },
     },
     nidBirth: {
-        type: Buffer,
-        contentType: String,
+        type: String,
+        // required: [true, "User image is required"],
     },
     isAdmin: {
         type: Boolean,
