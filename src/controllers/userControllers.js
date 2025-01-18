@@ -127,7 +127,7 @@ const handelProcessRegister = async (req, res, next) => {
             isTutor = false,
             isCoaching = false,
         } = req.body;
-        
+
         const userExist = await checkUserExists(email);
 
         if (userExist) {
@@ -159,7 +159,7 @@ const handelProcessRegister = async (req, res, next) => {
         const token = createJsonWebToken(
             user,
             jsonActivationKey,
-            '1h')
+            '3h')
         // prepare user Email
         const emailData = {
             email,

@@ -54,15 +54,12 @@ const handleLogin = async (req, res, next) => {
             { user: userInfo },
             jsonAccessKey,
             '3h')
-        // set up local cookie stor token in the HTTP cookie
         setAccessTokenCookie(res, accessToken)
 
-        // create Refresh jwt token
         const refreshToken = createJsonWebToken(
             { user: userInfo },
             jsonRefreshKey,
             "7d");
-        // set up local cookie refresh token in the HTTP cookie
         setRefreshTokenCookie(res, refreshToken)
 
         const userWithoutPassword = user.toObject();
