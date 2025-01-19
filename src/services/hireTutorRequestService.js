@@ -1,5 +1,5 @@
 const createError = require('http-errors');
-const TutorRequest = require('../models/tutorRequestModel');
+const TutorRequest = require('../models/hireTutorRequestModel');
 
 const createTutorRequest = async (tutorRequestData) => {
     try {

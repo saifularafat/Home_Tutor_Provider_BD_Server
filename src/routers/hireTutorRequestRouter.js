@@ -12,8 +12,8 @@ const {
     handelTutorRequestCreate,
     handelGetSingleTutorRequest,
     handelManageTutorHireApproveAndPendingById,
-} = require("../controllers/tutorRequestController");
-const { validatorTutorRequestCreate } = require("../validators/tutorRequest");
+} = require("../controllers/hireTutorRequestController");
+const { validatorTutorRequestCreate } = require("../validators/hireTutorRequest");
 
 const tutorRequestRouter = express.Router();
 

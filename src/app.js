@@ -14,7 +14,7 @@ const authRouter = require("./routers/authRouter");
 const tuitionJobRouter = require("./routers/tuitionJobRouter");
 const blogRouter = require("./routers/blogRouter");
 const ratingRouter = require("./routers/ratingRouter");
-const tutorRequestRouter = require("./routers/tutorRequestRouter");
+const tutorRequestRouter = require("./routers/hireTutorRequestRouter");
 const tutorJobApplyRouter = require("./routers/tutorJobApplyRouter");
 const contactRouter = require("./routers/contactRouter");
 

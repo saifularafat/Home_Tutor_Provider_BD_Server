@@ -1,5 +1,11 @@
 const { successResponse } = require("../Helper/responseController");
-const { getTutorRequest, deleteTutorRequestById, updateTutorRequestById, createTutorRequest, getSingleTutorRequest, handelTutorHireAction } = require("../services/tutorRequestService");
+const { 
+    getTutorRequest, 
+    deleteTutorRequestById, 
+    updateTutorRequestById, 
+    createTutorRequest, 
+    getSingleTutorRequest,
+    handelTutorHireAction } = require("../services/hireTutorRequestService");
 
 
 const handelTutorRequestCreate = async (req, res, next) => {
