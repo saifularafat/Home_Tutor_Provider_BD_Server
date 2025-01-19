@@ -13,31 +13,31 @@ const {
     handelGetSingleTutorRequest,
     handelManageTutorHireApproveAndPendingById,
 } = require("../controllers/hireTutorRequestController");
-const { validatorTutorRequestCreate } = require("../validators/hireTutorRequest");
+const { validatorTutorRequestCreate, validatorHireTutorRequestCreate } = require("../validators/hireTutorRequest");
 
-const tutorRequestRouter = express.Router();
+const hireTutorRequestRouter = express.Router();
 
-tutorRequestRouter.post('/',
+hireTutorRequestRouter.post('/',
     runValidation,
-    validatorTutorRequestCreate,
+    validatorHireTutorRequestCreate,
     handelTutorRequestCreate)
 
-tutorRequestRouter.get('/',
+hireTutorRequestRouter.get('/',
     handelGetTutorRequest)
 
-tutorRequestRouter.get("/:id([0-9a-fA-F]{24})",
+hireTutorRequestRouter.get("/:id([0-9a-fA-F]{24})",
     handelGetSingleTutorRequest)
 
-tutorRequestRouter.put("/:id([0-9a-fA-F]{24})",
+hireTutorRequestRouter.put("/:id([0-9a-fA-F]{24})",
     handelUpdateTutorRequest)
 
-tutorRequestRouter.put("/manage-tutor-hire/:id([0-9a-fA-F]{24})",
+hireTutorRequestRouter.put("/manage-tutor-hire/:id([0-9a-fA-F]{24})",
     // isLoggedIn,
     // isAdmin,
     handelManageTutorHireApproveAndPendingById
 );
-tutorRequestRouter.delete("/:id([0-9a-fA-F]{24})",
+hireTutorRequestRouter.delete("/:id([0-9a-fA-F]{24})",
     handelDeleteTutorRequest)
 
 
-module.exports = tutorRequestRouter;
+module.exports = hireTutorRequestRouter;

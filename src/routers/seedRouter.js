@@ -2,7 +2,7 @@ const express = require("express");
 const {
     seedUser,
     seedTuitionJob,
-    seedTutorRequest,
+    seedHireTutorRequest,
     seedBlogs,
     seedRating,
     seedTutorJobApply,
@@ -21,7 +21,7 @@ seedRouter.get("/tuition-job",
 )
 
 seedRouter.get("/tutor-hire-request",
-    seedTutorRequest
+    seedHireTutorRequest
 )
 
 seedRouter.get("/job-apply",

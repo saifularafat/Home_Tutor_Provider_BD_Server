@@ -1,9 +1,9 @@
 const createError = require('http-errors');
-const TutorRequest = require('../models/hireTutorRequestModel');
+const HireTutorRequest = require('../models/hireTutorRequestModel');
 
 const createTutorRequest = async (tutorRequestData) => {
     try {
-        const newTutorRequest = await TutorRequest.create(tutorRequestData);
+        const newTutorRequest = await HireTutorRequest.create(tutorRequestData);
         return newTutorRequest;
     } catch (error) {
         throw error;
@@ -12,7 +12,7 @@ const createTutorRequest = async (tutorRequestData) => {
 
 const getTutorRequest = async (page = 1, limit = 5, filter = {}) => {
 
-    const tutorRequest = await TutorRequest.find(filter)
+    const tutorRequest = await HireTutorRequest.find(filter)
         .skip((page - 1) * limit)
         .limit(limit)
         .sort({ createdAt: -1 });
@@ -20,7 +20,7 @@ const getTutorRequest = async (page = 1, limit = 5, filter = {}) => {
     if (!tutorRequest) {
         throw createError(404, 'Tutor Request Not Found')
     }
-    const count = await TutorRequest.find(filter).countDocuments();
+    const count = await HireTutorRequest.find(filter).countDocuments();
 
     return {
         tutorRequest,
@@ -32,7 +32,7 @@ const getTutorRequest = async (page = 1, limit = 5, filter = {}) => {
 
 const getSingleTutorRequest = async (id) => {
     try {
-        const tutorRequest = await TutorRequest
+        const tutorRequest = await HireTutorRequest
             .findOne({ _id: id })
             .lean();
         if (!tutorRequest) {
@@ -46,7 +46,7 @@ const getSingleTutorRequest = async (id) => {
 
 const updateTutorRequestById = async (id, updates, updateOptions) => {
     try {
-        const updatedTutorRequest = await TutorRequest.findOneAndUpdate(
+        const updatedTutorRequest = await HireTutorRequest.findOneAndUpdate(
             { _id: id },
             updates,
             updateOptions,
@@ -72,7 +72,7 @@ const handelTutorHireAction = async (id, action) => {
             throw createError(400, 'Invalid action, Please select Approve and Pending option.!')
         }
         const updateOption = { new: true, runValidators: true, context: 'query' };
-        const updateJobApply = await TutorRequest.findByIdAndUpdate(id, update, updateOption);
+        const updateJobApply = await HireTutorRequest.findByIdAndUpdate(id, update, updateOption);
         if (!updateJobApply) {
             throw createError(
                 400,
@@ -85,7 +85,7 @@ const handelTutorHireAction = async (id, action) => {
 
 const deleteTutorRequestById = async (id) => {
     try {
-        const tutorRequest = await TutorRequest.findOneAndDelete({ _id: id });
+        const tutorRequest = await HireTutorRequest.findOneAndDelete({ _id: id });
         if (!tutorRequest) {
             throw createError(404, 'No tutor request found.')
         }

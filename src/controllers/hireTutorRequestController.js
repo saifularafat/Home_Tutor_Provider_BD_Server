@@ -11,29 +11,55 @@ const {
 const handelTutorRequestCreate = async (req, res, next) => {
     try {
         const {
-            guardianId,
-            guardianEmail,
-            category,
-            location,
-            subLocation,
-            guardianPhone,
-            guardianAddress,
-            comments,
-            tutorEmail,
             tutorId,
+            tutorEmail,
+            tutorName,
+            tutorImage,
+            tutorPhone,
+            tutorAddress,
+            jobCategory,
+            jobSubject,
+            studentClass,
+            howManyStudent,
+            studentGender,
+            tuitionSalary,
+            tuitionStartMonth,
+            studentLocation,
+            studentSubLocation,
+            tuitionFullAddress,
+            comments,
+            ParentEmail,
+            parentName,
+            parentAddress,
+            parentPhone,
+            parentImage,
+            parentId,
         } = req.body;
 
         const tutorRequestData = {
-            guardianId,
-            guardianEmail,
-            category,
-            location,
-            subLocation,
-            guardianPhone,
-            guardianAddress,
-            comments,
-            tutorEmail,
             tutorId,
+            tutorEmail,
+            tutorName,
+            tutorImage,
+            tutorPhone,
+            tutorAddress,
+            jobCategory,
+            jobSubject,
+            studentClass,
+            howManyStudent,
+            studentGender,
+            tuitionSalary,
+            tuitionStartMonth,
+            studentLocation,
+            studentSubLocation,
+            tuitionFullAddress,
+            comments,
+            ParentEmail,
+            parentName,
+            parentAddress,
+            parentPhone,
+            parentImage,
+            parentId,
         }
         const newTutorRequest = await createTutorRequest(tutorRequestData);
 
@@ -56,10 +82,15 @@ const handelGetTutorRequest = async (req, res, next) => {
         const searchRegExp = new RegExp(".*" + search + ".*", "i");
         const filter = {
             $or: [
-                { guardianEmail: { $regex: searchRegExp } },
-                { guardianPhone: { $regex: searchRegExp } },
-                { category: { $regex: searchRegExp } },
+                { parentId: { $regex: searchRegExp } },
+                { ParentEmail: { $regex: searchRegExp } },
+                { parentName: { $regex: searchRegExp } },
+                { parentPhone: { $regex: searchRegExp } },
+                { jobCategory: { $regex: searchRegExp } },
+                { tutorPhone: { $regex: searchRegExp } },
+                { tutorName: { $regex: searchRegExp } },
                 { tutorEmail: { $regex: searchRegExp } },
+                { tutorId: { $regex: searchRegExp } },
             ]
         }
         const tutorRequestData = await getTutorRequest(page, limit, filter)
@@ -104,11 +135,16 @@ const handelUpdateTutorRequest = async (req, res, next) => {
         let updates = {}
 
         const allowedFields = [
-            'category',
-            'location',
-            'subLocation',
-            'guardianPhone',
-            'guardianAddress',
+            'jobCategory',
+            'jobSubject',
+            'studentClass',
+            'howManyStudent',
+            'tuitionSalary',
+            'tuitionStartMonth',
+            'studentLocation',
+            'studentSubLocation',
+            'tuitionFullAddress',
+            'parentPhone',
             'comments',
         ]
         for (const key in req.body) {

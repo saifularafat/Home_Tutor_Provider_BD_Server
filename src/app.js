@@ -14,7 +14,7 @@ const authRouter = require("./routers/authRouter");
 const tuitionJobRouter = require("./routers/tuitionJobRouter");
 const blogRouter = require("./routers/blogRouter");
 const ratingRouter = require("./routers/ratingRouter");
-const tutorRequestRouter = require("./routers/hireTutorRequestRouter");
+const hireTutorRequestRouter = require("./routers/hireTutorRequestRouter");
 const tutorJobApplyRouter = require("./routers/tutorJobApplyRouter");
 const contactRouter = require("./routers/contactRouter");
 
@@ -73,7 +73,7 @@ app.use(rateLimitApi); // all api router is work now hit this router secret
 app.use('/api/users', userRouter)
 app.use("/api/auth", authRouter);
 app.use("/api/tuition-job", tuitionJobRouter);
-app.use("/api/tutor-hire-request", tutorRequestRouter);
+app.use("/api/tutor-hire-request", hireTutorRequestRouter);
 app.use("/api/job-apply", tutorJobApplyRouter);
 app.use('/api/blog', blogRouter)
 app.use('/api/rating', ratingRouter)

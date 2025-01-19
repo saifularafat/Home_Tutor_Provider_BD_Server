@@ -1,7 +1,7 @@
 const data = require("../data")
 const User = require("../models/userModel")
 const TuitionJob = require("../models/tuitionJobModel")
-const TutorRequest = require("../models/hireTutorRequestModel")
+const HireTutorRequest = require("../models/hireTutorRequestModel")
 const Blog = require("../models/blogModel")
 const Rating = require("../models/ratingModel")
 const TutorJobApply = require("../models/tutorJobApplyModel")
@@ -29,10 +29,10 @@ const seedTuitionJob = async (req, res, next) => {
     }
 }
 
-const seedTutorRequest = async (req, res, next) => {
-    await TutorRequest.deleteMany({})
+const seedHireTutorRequest = async (req, res, next) => {
+    await HireTutorRequest.deleteMany({})
     try {
-        const tutorRequest = await TutorRequest.insertMany(data.hireTutorRequest)
+        const tutorRequest = await HireTutorRequest.insertMany(data.hireTutorRequest)
         return res.status(201).json(tutorRequest);
     } catch (error) {
         next(error)
@@ -84,7 +84,7 @@ const seedContact = async (req, res, next) => {
 module.exports = {
     seedUser,
     seedTuitionJob,
-    seedTutorRequest,
+    seedHireTutorRequest,
     seedTutorJobApply,
     seedBlogs,
     seedRating,

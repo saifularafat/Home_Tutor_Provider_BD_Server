@@ -1,30 +1,54 @@
 const { body } = require("express-validator");
 
 // Create tutor request validator 
-const validatorTutorRequestCreate = [
-    body('category')
+const validatorHireTutorRequestCreate = [
+    body('jobCategory')
         .trim()
         .notEmpty()
-        .withMessage("Guardian category is required"),
-    body('location')
+        .withMessage("Guardian Job Category is required"),
+    body('jobSubject')
         .trim()
         .notEmpty()
-        .withMessage("Guardian Location is required")
+        .withMessage("Tuition subject is required"),
+    body('studentClass')
+        .trim()
+        .notEmpty()
+        .withMessage("Student class is required"),
+    body('howManyStudent')
+        .trim()
+        .notEmpty()
+        .withMessage("How Many Student class is required"),
+    body('studentGender')
+        .trim()
+        .notEmpty()
+        .withMessage("Student gender is required"),
+    body('tuitionSalary')
+        .trim()
+        .notEmpty()
+        .withMessage("Tuition salary is required"),
+    body('tuitionStartMonth')
+        .trim()
+        .notEmpty()
+        .withMessage("Tuition Start Month is required"),
+    body('studentLocation')
+        .trim()
+        .notEmpty()
+        .withMessage("Student Location is required")
         .isLength({ min: 4 })
-        .withMessage("Tutor request Location should be at least 4 characters long!"),
-    body('subLocation')
+        .withMessage("Student request Location should be at least 4 characters long!"),
+    body('studentSubLocation')
         .trim()
         .notEmpty()
-        .withMessage("Guardian sub location is required")
+        .withMessage("Student sub location is required")
         .isLength({ min: 4 })
-        .withMessage("Tutor request sub Location should be at least 4 characters long!"),
-    body('guardianAddress')
+        .withMessage("Student request sub Location should be at least 4 characters long!"),
+    body('tuitionFullAddress')
         .trim()
         .notEmpty()
-        .withMessage(" Guardian full address is required")
-        .isLength({ min: 8 })
-        .withMessage("Tutor request full address should be at least 8 characters long!"),
-    body('guardianPhone')
+        .withMessage("tuition full address is required")
+        .isLength({ min: 4 })
+        .withMessage("tuition full address should be at least 4 characters long!"),
+    body('parentPhone')
         .trim()
         .notEmpty()
         .withMessage("Your contact Phone number is required, Enter your contact Phone number"),
@@ -36,5 +60,5 @@ const validatorTutorRequestCreate = [
 ]
 
 module.exports = {
-    validatorTutorRequestCreate,
+    validatorHireTutorRequestCreate,
 }

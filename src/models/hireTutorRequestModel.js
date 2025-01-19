@@ -1,53 +1,9 @@
 const { Schema, model } = require("mongoose");
 
-const TutorRequestSchema = new Schema({
-    guardianId: {
+const HireTutorRequestSchema = new Schema({
+    tutorId: {
         type: String,
-        required: [true, "Guardian ID is required"],
-    },
-    guardianEmail: {
-        type: String,
-        required: [true, "Guardian Email is required"],
-    },
-    guardianName: {
-        type: String,
-        required: [true, "Guardian Name is required"],
-    },
-    guardianPhone: {
-        type: String,
-        required: [true, "Guardian phone is required"],
-        validate: {
-            validator: function (v) {
-                return /^(\+8801|8801|01)[3-9]\d{8}$/.test(v);
-            },
-            message: "Please enter a valid phone number"
-        },
-    },
-    guardianAddress: {
-        type: String,
-        required: [true, "Guardian Address is required"],
-        minlength: [5, "The length of user Address can be minimum 5 character"],
-    },
-    JobCategory: {
-        type: String,
-        required: [true, "Tuition Job Category is required"],
-    },
-    JobSubject: {
-        type: String,
-        required: [true, "Tuition Job Category is required"],
-    },
-    tuitionSalary: {
-        type: Number,
-        required: [true, "Tuition salary is required"],
-    },
-    tuitionStartMonth: {
-        type: String,
-        required: [true, "Tuition Start Month is required"],
-    },
-    comments: {
-        type: String,
-        required: [true, "Guardian Comment is required"],
-        minlength: [5, "The length of user Address can be minimum 5 character"],
+        required: [true, "Tutor ID is required"],
     },
     tutorEmail: {
         type: String,
@@ -57,15 +13,91 @@ const TutorRequestSchema = new Schema({
         type: String,
         required: [true, "Tutor Name is required"],
     },
-    tutorAddress: {
+    tutorImage: {
         type: String,
-        required: [true, "Tutor Address is required"],
+        required: [true, "Tutor Image is required"],
     },
     tutorPhone: {
         type: String,
+        required: [true, "Tutor phone is required"],
+        validate: {
+            validator: function (v) {
+                return /^(\+8801|8801|01)[3-9]\d{8}$/.test(v);
+            },
+            message: "Please enter a valid phone number"
+        },
+    },
+    tutorAddress: {
+        type: String,
+        required: [true, "Tutor Address is required"],
+        minlength: [5, "The length of user Address can be minimum 5 character"],
+    },
+    jobCategory: {
+        type: String,
+        required: [true, "Tuition Job Category is required"],
+    },
+    jobSubject: {
+        type: String,
+        required: [true, "Tuition subject is required"],
+    },
+    studentClass: {
+        type: String,
+        required: [true, "Student class is required"],
+    },
+    howManyStudent: {
+        type: Number,
+        required: [true, "How Many Student is required"],
+    },
+    studentGender: {
+        type: String,
+        required: [true, "Student Gender is required"],
+    },
+    tuitionSalary: {
+        type: Number,
+        required: [true, "Tuition salary is required"],
+    },
+    tuitionStartMonth: {
+        type: String,
+        required: [true, "Tuition Start Month is required"],
+    },
+    studentLocation: {
+        type: String,
+        required: [true, "Location is required"],
+    },
+    studentSubLocation: {
+        type: String,
+        required: [true, "Sub Location is required"],
+    },
+    tuitionFullAddress: {
+        type: String,
+        required: [true, "Tuition Address is required"],
+    },
+    comments: {
+        type: String,
+        required: [true, "Guardian Comment is required"],
+        minlength: [5, "The length of user Address can be minimum 5 character"],
+    },
+    ParentEmail: {
+        type: String,
+        required: [true, "Tutor Email is required"],
+    },
+    parentName: {
+        type: String,
+        required: [true, "Tutor Name is required"],
+    },
+    parentAddress: {
+        type: String,
+        required: [true, "Tutor Address is required"],
+    },
+    parentPhone: {
+        type: String,
         required: [true, "Tutor Phone is required"],
     },
-    tutorId: {
+    parentImage: {
+        type: String,
+        required: [true, "Tutor Phone is required"],
+    },
+    parentId: {
         type: String,
         required: [true, "Tutor ID is required"],
     },
@@ -75,6 +107,6 @@ const TutorRequestSchema = new Schema({
     },
 }, { timestamps: true })
 
-const TutorRequest = model("TutorRequests", TutorRequestSchema)
+const HireTutorRequest = model("HireTutorRequests", HireTutorRequestSchema)
 
-module.exports = TutorRequest;
+module.exports = HireTutorRequest;
