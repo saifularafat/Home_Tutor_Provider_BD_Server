@@ -11,6 +11,7 @@ const { setAccessTokenCookie, setRefreshTokenCookie } = require("../Helper/cooki
 const handleLogin = async (req, res, next) => {
     try {
         const { email, password } = req.body;
+        // console.log("user =>", res.cookies)
 
         const user = await User.findOne({ email });
         if (!user) {
@@ -128,7 +129,7 @@ const handelProtectedRoute = async (req, res, next) => {
                 'Invalid Access token. Please login again.'
             )
         }
-        
+
         return successResponse(res, {
             statusCode: 200,
             message: "Protected resources access successfully",
