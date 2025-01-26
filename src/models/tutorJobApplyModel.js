@@ -17,6 +17,14 @@ const TutorJobApplySchema = new Schema({
         type: String,
         required: [true, "Tutor Address is required"],
     },
+    tutorCurrentLocation: {
+        type: String,
+        required: [true, "Tutor current location is required"],
+    },
+    tutorDescription: {
+        type: String,
+        required: [true, "Tutor description is required"],
+    },
     tutorDemeanSalary: {
         type: String,
         required: [true, "Tutor demean salary is required"],

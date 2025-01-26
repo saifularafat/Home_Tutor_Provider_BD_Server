@@ -19,6 +19,8 @@ const handelTutorJobApplyCreate = async (req, res, next) => {
             tutorDemeanSalary,
             tutorPhone,
             tutorWhatsappNumber,
+            tutorDescription,
+            tutorCurrentLocation,
             jobId,
             jobEmail,
             jobSubject,
@@ -40,6 +42,8 @@ const handelTutorJobApplyCreate = async (req, res, next) => {
             tutorDemeanSalary,
             tutorPhone,
             tutorWhatsappNumber,
+            tutorDescription,
+            tutorCurrentLocation,
             jobId,
             jobEmail,
             jobSubject,
@@ -76,6 +80,8 @@ const handelGetTutorJobApply = async (req, res, next) => {
                 { tutorPhone: { $regex: searchRegExp } },
                 { tutorId: { $regex: searchRegExp } },
                 { jobId: { $regex: searchRegExp } },
+                { jobEmail: { $regex: searchRegExp } },
+                { jobSalary: { $regex: searchRegExp } },
                 { tutorEmail: { $regex: searchRegExp } },
             ]
         }
@@ -120,7 +126,8 @@ const handelUpdateTutorJobApply = async (req, res, next) => {
         let updates = {}
 
         const allowedFields = [
-            'currentLocation',
+            'tutorCurrentLocation',
+            'tutorDescription',
             'tutorPhone',
             'tutorWhatsappNumber',
         ]
