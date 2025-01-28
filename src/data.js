@@ -37,6 +37,8 @@ const data = {
     // tuition job demo data
     tuitionJobs: [
         {
+            userId: "",
+            userEmail: "",
             tuitionCode: "",
             jobLocation: "123 Tuition Street, Dhaka",
             slug: "123-tuition-street-dhaka",
@@ -57,6 +59,8 @@ const data = {
             description: "Looking for an experienced math tutor for Class 8."
         },
         {
+            userId: "",
+            userEmail: "",
             tuitionCode: "",
             jobLocation: "456 Education Avenue, Chittagong",
             slug: "456-education-avenue-chittagong",
@@ -77,6 +81,8 @@ const data = {
             description: "Need a dedicated science tutor for Class 10."
         },
         {
+            userId: "",
+            userEmail: "",
             tuitionCode: "",
             jobLocation: "789 Learning Lane, Sylhet",
             slug: "789-learning-lane-sylhet",

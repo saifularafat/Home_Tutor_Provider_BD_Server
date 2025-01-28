@@ -87,10 +87,12 @@ const tuitionJobSchema = new Schema({
         type: String,
         required: [true, "tuition district name is required"],
     },
+    userEmail: {
+        type: String,
+    },
     userId: {
         type: String,
     },
-
 }, { timestamps: true })
 
 

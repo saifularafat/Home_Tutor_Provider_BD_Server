@@ -22,11 +22,12 @@ const createTuitionJob = async (tuitionJob) => {
             fixedTime,
             tuitionDistrictName,
             userId,
+            userEmail,
         } = tuitionJob;
 
         // Extract the last word from jobLocation
         const words = tuitionJob.jobLocation.trim().split(" ");
-        const lastWord = words[words.length - 1].replace(/[^a-zA-Z]/g, ""); 
+        const lastWord = words[words.length - 1].replace(/[^a-zA-Z]/g, "");
         const jobCodePart = lastWord.slice(0, 3).toUpperCase();
 
         const count = await TuitionJob.countDocuments();
@@ -54,6 +55,7 @@ const createTuitionJob = async (tuitionJob) => {
             fixedTime,
             tuitionDistrictName,
             userId,
+            userEmail,
         });
 
         return newTuitionJob;

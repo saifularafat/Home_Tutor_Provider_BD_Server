@@ -26,12 +26,15 @@ const handelTutorJobApplyCreate = async (req, res, next) => {
             jobSubject,
             jobClass,
             jobMedium,
+            jobCategory,
             jobSalary,
             jobPerWeek,
             jobAddress,
+            jobComment,
             jobPhone,
             jobWhatsappNumber,
-            jobSchoolName
+            jobSchoolName,
+            jobPostDate
         } = req.body;
 
         const tutorJobApplyData = {
@@ -49,12 +52,15 @@ const handelTutorJobApplyCreate = async (req, res, next) => {
             jobSubject,
             jobClass,
             jobMedium,
+            jobCategory,
             jobSalary,
             jobPerWeek,
             jobAddress,
+            jobComment,
             jobPhone,
             jobWhatsappNumber,
-            jobSchoolName
+            jobSchoolName,
+            jobPostDate
         }
         const newTutorJobApply = await createTutorJobApply(tutorJobApplyData);
 

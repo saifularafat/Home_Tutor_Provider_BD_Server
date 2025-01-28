@@ -63,6 +63,10 @@ const TutorJobApplySchema = new Schema({
         type: String,
         required: [true, "Job medium is required"],
     },
+    jobCategory: {
+        type: String,
+        required: [true, "Job Category is required"],
+    },
     jobSalary: {
         type: String,
         required: [true, "Job salary is required"],
@@ -83,9 +87,15 @@ const TutorJobApplySchema = new Schema({
         type: String,
         required: [true, "Job whatsapp number is required"],
     },
+    jobComment: {
+        type: String,
+    },
     jobSchoolName: {
         type: String,
         required: [true, "Job school name is required"],
+    },
+    jobPostDate: {
+        type: String,
     },
     isJobApply: {
         type: Boolean,
