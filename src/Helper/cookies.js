@@ -4,7 +4,7 @@ const setAccessTokenCookie = (res, accessToken) => {
         maxAge: 3 * 60 * 60 * 1000, // 3 hours
         httpOnly: true, // Prevents JavaScript access to the cookie (security feature)
         secure: process.env.NODE_ENV === 'production', // Use secure cookies only in production
-        sameSite: 'None', // Allows cross-site cookies (important for cross-domain authentication)
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',  // Allows cross-site cookies (important for cross-domain authentication)
     });
 };
 
