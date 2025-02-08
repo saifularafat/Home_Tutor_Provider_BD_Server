@@ -35,22 +35,22 @@ userRouter.post("/process-register",
     validatorUserRegistration,
     runValidation,
     handelProcessRegister);
-    
+
 userRouter.post("/activate", handelActivateUsersAccount);
 
 userRouter.get('/',
     // isLoggedIn,
     // isAdmin,
     handelGetUsers);
-    
+
 userRouter.get('/all-tutor',
     handelGetTutor);
-    
+
 userRouter.get('/all-tutor/:id([0-9a-fA-F]{24})',
     handelGetTutorById);
 
 userRouter.get('/:id([0-9a-fA-F]{24})',
-    isLoggedIn,
+    // isLoggedIn,
     handelGetUserById);
 
 userRouter.delete('/:id([0-9a-fA-F]{24})',

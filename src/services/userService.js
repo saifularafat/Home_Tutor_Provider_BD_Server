@@ -129,7 +129,7 @@ const updateUserById = async (userId, req) => {
 
         const updateOptions = { new: true, runValidators: true, context: 'query' };
         let updates = {}
-        const allowedFields = ['name', 'password', 'phone', 'address', 'gender',]
+        const allowedFields = ['progressBar', 'name', 'password', 'phone', 'address', 'gender', 'image', 'nidBirth', 'PreferableArea', 'livingAddress', 'Professions', 'licensePhoto', 'achievements', 'websiteSocialLink', 'studentIdCardPicture', 'universityName', 'educationLevels', 'universitySubjects', 'universityResult', 'collegeName', 'collageSubject', 'collageSubject', 'collageResult', 'collagePassYear', 'schoolName', 'schoolGroup', 'schoolResult', 'schoolPassYears', 'experience', 'expectedSalary', 'preferableClass', 'preferableSubAreas', 'medium', 'TuitionExpectedSalary', 'preferableSubject', 'additionalQualification', 'programmingInstituteName', 'programmingLanguages', 'programmingLanguagesStartYears', 'programmingCertificate', 'tutorRunningInstituteName', 'runningSemester', 'runningSubject', 'bio'];
         for (const key in req.body) {
             if (allowedFields.includes(key)) {
                 updates[key] = req.body[key];
@@ -138,13 +138,13 @@ const updateUserById = async (userId, req) => {
                 throw createError(400, "Email can not be updated.")
             }
         }
-
+        // image update verify
         const image = req.file;
         if (image) {
             if (image.size > 1024 * 1024 * 2) {
                 throw createError(400, "Image file is too large. It must be less than 2 MB.")
             }
-            updates.image 
+            updates.image
         }
         // nidBirth update verify
         const nidBirth = req.file;
@@ -154,6 +154,33 @@ const updateUserById = async (userId, req) => {
             }
             updates.nidBirth
         }
+
+        // licensePhoto update verify
+        const licensePhoto = req.file;
+        if (licensePhoto) {
+            if (licensePhoto.size > 1024 * 1024 * 2) {
+                throw createError(400, "Nid/Birth file is too large. It must be less than 2 MB.")
+            }
+            updates.licensePhoto
+        }
+        // studentIdCardPicture update verify
+        const studentIdCardPicture = req.file;
+        if (studentIdCardPicture) {
+            if (studentIdCardPicture.size > 1024 * 1024 * 2) {
+                throw createError(400, "Nid/Birth file is too large. It must be less than 2 MB.")
+            }
+            updates.studentIdCardPicture
+        }
+        // programmingCertificate update verify
+        const programmingCertificate = req.file;
+        if (programmingCertificate) {
+            if (programmingCertificate.size > 1024 * 1024 * 2) {
+                throw createError(400, "Nid/Birth file is too large. It must be less than 2 MB.")
+            }
+            updates.programmingCertificate
+        }
+
+
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             updates,

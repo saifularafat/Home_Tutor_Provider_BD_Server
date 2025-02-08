@@ -5,6 +5,9 @@ const userSchema = new Schema({
     userId: {
         type: String,
     },
+    progressBar: {
+        type: String,
+    },
     name: {
         type: String,
         required: [true, "user name is required"],
@@ -69,9 +72,124 @@ const userSchema = new Schema({
             message: "Please enter a valid image URL",
         },
     },
+    // parent
     nidBirth: {
         type: String,
-        // required: [true, "User image is required"],
+    },
+    PreferableArea: {
+        type: String,
+    },
+    livingAddress: {
+        type: String,
+    },
+    Professions: {
+        type: String,
+    },
+
+    // coaching
+    licensePhoto: {
+        type: String,
+    },
+    achievements: {
+        type: String,
+    },
+    websiteSocialLink: {
+        type: String,
+    },
+
+    // Tutor
+    studentIdCardPicture: {
+        type: String,
+    },
+    universityName: {
+        type: String,
+    },
+    educationLevels: {
+        type: String,
+    },
+    universitySubjects: {
+        type: String,
+    },
+    universityResult: {
+        type: String,
+    },
+
+    collegeName: {
+        type: String,
+    },
+    collageSubject: {
+        type: String,
+    },
+    collageResult: {
+        type: String,
+    },
+    collagePassYear: {
+        type: String,
+    },
+
+    schoolName: {
+        type: String,
+    },
+    schoolGroup: {
+        type: String,
+    },
+    schoolResult: {
+        type: String,
+    },
+    schoolPassYears: {
+        type: String,
+    },
+
+    experience: {
+        type: String,
+    },
+    expectedSalary: {
+        type: String,
+    },
+    preferableClass: {
+        type: String,
+    },
+    preferableSubAreas: {
+        type: String,
+    },
+    medium: {
+        type: String,
+    },
+    TuitionExpectedSalary: {
+        type: String,
+    },
+    preferableSubject: {
+        type: String,
+    },
+    additionalQualification: {
+        type: String,
+    },
+
+    programmingInstituteName: {
+        type: String,
+    },
+    programmingLanguages: {
+        type: String,
+    },
+    programmingLanguagesStartYears: {
+        type: String,
+    },
+    programmingCertificate: {
+        type: String,
+    },
+
+    tutorRunningInstituteName: {
+        type: String,
+    },
+    runningSemester: {
+        type: String,
+    },
+    runningSubject: {
+        type: String,
+    },
+
+    bio: {
+        type: String,
     },
     isAdmin: {
         type: Boolean,
